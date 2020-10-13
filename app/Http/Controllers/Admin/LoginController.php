@@ -110,10 +110,52 @@ class LoginController extends Controller
      *                     type="string",
      *                     format="binary",
      *                 ),
-     *                  required={"option","file"},
+     *                  @OA\Property(
+     *                      type="array",
+     *                      property="multi",
+     *                      description="多选",
+     *                      default="available",
+     *                      @OA\Items(
+     *                          type="string",
+     *                          enum = {"available", "pending", "sold"},
+     *                      )
+     *                  ),
+     *                  @OA\Property(
+     *                      property="tags",
+     *                      description="手动添加多个",
+     *                      type="array",
+     *                      @OA\Items(format="datetime",example="2222"),
+     *                  ),
+     *                  required={"option","file","multi","tags"},
      *                  example={"id": "a3fb6", "name": "Jessica Smith"}
      *             )
      *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="status",
+     *         in="query",
+     *         description="Status values that needed to be considered for filter",
+     *         required=true,
+     *         explode=true,
+     *         @OA\Schema(
+     *             type="array",
+     *             default="available",
+     *             @OA\Items(
+     *                 type="string",
+     *                 enum = {"available", "pending", "sold"},
+     *             )
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="tags",
+     *         in="query",
+     *         description="Tags to filter by",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="array",
+     *           @OA\Items(type="string"),
+     *         ),
+     *         style="form"
      *     ),
      *     @OA\Response(
      *     response="200",
