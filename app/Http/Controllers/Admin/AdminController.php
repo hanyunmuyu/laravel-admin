@@ -32,11 +32,12 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  * @OA\SecurityScheme(
- *   securityScheme="api_key",
- *   type="apiKey",
- *   in="header",
- *   name="Authorization"
+ *     type="apiKey",
+ *     in="header",
+ *     securityScheme="api_key",
+ *     name="api_key"
  * )
+ *
  */
 class AdminController extends Controller
 {
@@ -47,19 +48,6 @@ class AdminController extends Controller
         $this->adminRepository = $adminRepository;
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/index",
-     *   security={{
-     *     "api_key":{}
-     *   }},
-     *     @OA\Response(response="200", description="
-     *      |参数|说明|备注||||
-     *      |:---:|:---:|:---:|-----|-----|-----|
-     *      |status|状态|['已取消', '等待付款', '下单成功', '付款中'] 取数组索引||||
-     *     ")
-     * )
-     */
     public function index()
     {
         $adminList = $this->adminRepository->getAdminList();

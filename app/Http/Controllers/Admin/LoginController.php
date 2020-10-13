@@ -18,6 +18,40 @@ class LoginController extends Controller
         $this->adminRepository = $adminRepository;
     }
 
+    /**
+     * @OA\Post (
+     *     summary="后台登录",
+     *     tags={"admin"},
+     *      description="",
+     *     path="/admin/login",
+     *     security={{"api_key":{}}},
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="密码",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="name",
+     *                     description="用户名",
+     *                     type="string"
+     *                 ),
+     *                  required={"password","name"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *      response="200",
+     *      description="
+     *      |参数|说明|备注||||
+     *      |:---:|:---:|:---:|-----|-----|-----|
+     *      |status|状态|['已取消', '等待付款', '下单成功', '付款中'] 取数组索引||||
+     *     ")
+     * )
+     */
     public function login(Request $request)
     {
         $adminName = $request->get('name');
@@ -50,6 +84,49 @@ class LoginController extends Controller
         } else {
             return $this->success($this->respondWithToken($token, $admin->toArray()));
         }
+    }
+
+    /**
+     * @OA\Post (
+     *     summary="上传文件",
+     *     tags={"admin"},
+     *     description="上传文件",
+     *     path="/admin/upload",
+     *     security={{"api_key":{}}},
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                  @OA\Property(
+     *                      property="option",
+     *                      default="placed",
+     *                      title="Order status",
+     *                      description="选项",
+     *                      enum={"placed", "approved", "delivered"},
+     *                  ),
+     *                 @OA\Property(
+     *                     description="文件上传",
+     *                     property="file",
+     *                     type="string",
+     *                     format="binary",
+     *                 ),
+     *                  required={"option","file"},
+     *                  example={"id": "a3fb6", "name": "Jessica Smith"}
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *     response="200",
+     *      description="
+     *      |参数|说明|备注||||
+     *      |:---:|:---:|:---:|-----|-----|-----|
+     *      |status|状态|['已取消', '等待付款', '下单成功', '付款中'] 取数组索引||||
+     *     ")
+     * )
+     */
+    public function upload()
+    {
+
     }
 
     protected function respondWithToken(string $token, array $admin)
