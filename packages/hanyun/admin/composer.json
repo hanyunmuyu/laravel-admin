@@ -1,0 +1,32 @@
+{
+    "name": "hanyun/laravel-admin",
+    "license": "MIT",
+    "description": "admin dashboard for the Laravel framework.",
+    "keywords": [
+        "",
+        "dashboard",
+        "laravel"
+    ],
+    "authors": [
+        {
+            "name": "hanyun",
+            "email": "1355081829@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hanyun\\Admin": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.3",
+        "tymon/jwt-auth": "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hanyun\\Admin\\AdminProvider"
+            ]
+        }
+    }
+}
