@@ -13,4 +13,9 @@ class AdminRepository
         return Admin::orderby('id', 'desc')
             ->paginate();
     }
+
+    public function getAdminByName(string $name)
+    {
+        return Admin::where('name', '=', $name)->first();
+    }
 }
