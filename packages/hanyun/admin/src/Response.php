@@ -4,6 +4,7 @@
 namespace Hanyun\Admin;
 
 
+use Illuminate\Contracts\Support\MessageBag;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,18 @@ trait Response
         return response()->json([
             'code' => $code, 'msg' => $msg, 'data' => $this->deleteNull($data)
         ]);
+    }
+
+    protected function formatErrorMsg(MessageBag $errors): string
+    {
+        foreach ($errors->getMessages() as $v) {
+            if ($v) {
+                foreach ($v as $value) {
+                    return array_pop($value);
+                }
+            }
+        }
+        return '';
     }
 
     /**

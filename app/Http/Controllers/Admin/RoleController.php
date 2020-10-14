@@ -36,6 +36,31 @@ class RoleController extends Controller
     public function deleteRole(Request $request)
     {
 
+        $rule = [
+            'id' => 'required|integer|min:1',
+
+        ];
+        $msg = [
+            'id.required' => 'id不可以为空',
+            'id.min'      => 'id不能小于 :min',
+        ];
+        $validator = Validator::make(
+            $request->all(),
+            $rule,
+            $msg
+        );
+        if ($validator->fails()) {
+            return $this->error($this->formatErrorMsg($validator->errors()));
+        }
+        $roleId = $request->get('id');
+        $role = $this->roleRepository->getRoleById($roleId);
+        if (!$role) {
+            return $this->error(['role' => ['角色不存在']]);
+        }
+        if ($this->roleRepository->deleteRole($roleId)) {
+            return $this->success();
+        }
+        return $this->error(['role' => ['删除失败']]);
     }
 
     public function updateRole(Request $request)

@@ -7,6 +7,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/login', [Admin\LoginController::class, 'login']);
     Route::group(['middleware' => ['admin']], function () {
         Route::get('/role/list', [Admin\RoleController::class, 'getRoleList']);
+        Route::delete('/role/delete', [Admin\RoleController::class, 'deleteRole']);
         Route::get('/role/detail', [Admin\RoleController::class, 'getRoleDetail']);
         Route::get('/list', [Admin\AdminController::class, 'index']);
     });
