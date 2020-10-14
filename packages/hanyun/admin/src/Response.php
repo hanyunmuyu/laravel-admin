@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 trait Response
 {
 
-    protected function success($data = [], $msg = 'success', $code = 0)
+    protected function success($data = [], $msg = 'success', $code = 0): JsonResponse
     {
         return response()->json(['code' => $code, 'msg' => $msg, 'data' => $this->deleteNull($data)]);
     }
@@ -40,7 +40,14 @@ trait Response
     public function SafeFilter(&$arr)
     {
 
-        $ra = array('/([\x00-\x08,\x0b-\x0c,\x0e-\x19])/', '/script/', '/javascript/', '/vbscript/', '/expression/', '/applet/', '/meta/', '/xml/', '/blink/', '/link/', '/style/', '/embed/', '/object/', '/frame/', '/layer/', '/title/', '/bgsound/', '/base/', '/onload/', '/onunload/', '/onchange/', '/onsubmit/', '/onreset/', '/onselect/', '/onblur/', '/onfocus/', '/onabort/', '/onkeydown/', '/onkeypress/', '/onkeyup/', '/onclick/', '/ondblclick/', '/onmousedown/', '/onmousemove/', '/onmouseout/', '/onmouseover/', '/onmouseup/', '/onunload/');
+        $ra = array(
+            '/([\x00-\x08,\x0b-\x0c,\x0e-\x19])/', '/script/', '/javascript/', '/vbscript/', '/expression/', '/applet/',
+            '/meta/', '/xml/', '/blink/', '/link/', '/style/', '/embed/', '/object/', '/frame/', '/layer/', '/title/',
+            '/bgsound/', '/base/', '/onload/', '/onunload/', '/onchange/', '/onsubmit/', '/onreset/', '/onselect/',
+            '/onblur/', '/onfocus/', '/onabort/', '/onkeydown/', '/onkeypress/', '/onkeyup/', '/onclick/',
+            '/ondblclick/', '/onmousedown/', '/onmousemove/', '/onmouseout/', '/onmouseover/', '/onmouseup/',
+            '/onunload/'
+        );
 
         if (is_array($arr)) {
             foreach ($arr as $key => $value) {

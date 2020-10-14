@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Roles;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
@@ -24,7 +24,7 @@ class RoleSeeder extends Seeder
             ]
         ];
         foreach ($roleList as $role) {
-            Roles::create($role);
+            Role::create($role);
         }
     }
 }
