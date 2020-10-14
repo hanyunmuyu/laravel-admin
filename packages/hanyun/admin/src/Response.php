@@ -9,15 +9,32 @@ use Illuminate\Support\Str;
 
 trait Response
 {
-
-    protected function success($data = [], $msg = 'success', $code = 0): JsonResponse
+    /**
+     * @param  array   $data
+     * @param  string  $msg
+     * @param  int     $code
+     *
+     * @return JsonResponse
+     */
+    protected function success($data = [], $msg = 'success', $code = 0)
     {
-        return response()->json(['code' => $code, 'msg' => $msg, 'data' => $this->deleteNull($data)]);
+        return response()->json([
+            'code' => $code, 'msg' => $msg, 'data' => $this->deleteNull($data)
+        ]);
     }
 
-    protected function error($msg = 'error', $data = [], $code = 1)
+    /**
+     * @param  array   $data
+     * @param  string  $msg
+     * @param  int     $code
+     *
+     * @return JsonResponse
+     */
+    protected function error($data = [], $msg = 'error', $code = 1)
     {
-        return response()->json(['code' => $code, 'msg' => $msg, 'data' => $data]);
+        return response()->json([
+            'code' => $code, 'msg' => $msg, 'data' => $data
+        ]);
     }
 
     private function deleteNull($data)
@@ -41,11 +58,16 @@ trait Response
     {
 
         $ra = array(
-            '/([\x00-\x08,\x0b-\x0c,\x0e-\x19])/', '/script/', '/javascript/', '/vbscript/', '/expression/', '/applet/',
-            '/meta/', '/xml/', '/blink/', '/link/', '/style/', '/embed/', '/object/', '/frame/', '/layer/', '/title/',
-            '/bgsound/', '/base/', '/onload/', '/onunload/', '/onchange/', '/onsubmit/', '/onreset/', '/onselect/',
-            '/onblur/', '/onfocus/', '/onabort/', '/onkeydown/', '/onkeypress/', '/onkeyup/', '/onclick/',
-            '/ondblclick/', '/onmousedown/', '/onmousemove/', '/onmouseout/', '/onmouseover/', '/onmouseup/',
+            '/([\x00-\x08,\x0b-\x0c,\x0e-\x19])/', '/script/', '/javascript/',
+            '/vbscript/', '/expression/', '/applet/',
+            '/meta/', '/xml/', '/blink/', '/link/', '/style/', '/embed/',
+            '/object/', '/frame/', '/layer/', '/title/',
+            '/bgsound/', '/base/', '/onload/', '/onunload/', '/onchange/',
+            '/onsubmit/', '/onreset/', '/onselect/',
+            '/onblur/', '/onfocus/', '/onabort/', '/onkeydown/', '/onkeypress/',
+            '/onkeyup/', '/onclick/',
+            '/ondblclick/', '/onmousedown/', '/onmousemove/', '/onmouseout/',
+            '/onmouseover/', '/onmouseup/',
             '/onunload/'
         );
 
@@ -54,10 +76,13 @@ trait Response
                 if (!is_array($value)) {
                     if (!get_magic_quotes_gpc())//不对magic_quotes_gpc转义过的字符使用addslashes(),避免双重转义。
                     {
-                        $value = addslashes($value); //给单引号（'）、双引号（"）、反斜线（\）与NUL（NULL字符）加上反斜线转义
+                        $value
+                            = addslashes($value); //给单引号（'）、双引号（"）、反斜线（\）与NUL（NULL字符）加上反斜线转义
                     }
-                    $value = preg_replace($ra, '', $value);     //删除非打印字符，粗暴式过滤xss可疑字符串
-                    $arr[$key] = htmlentities(strip_tags($value)); //去除 HTML 和 PHP 标记并转换为HTML实体
+                    $value = preg_replace($ra, '',
+                        $value);     //删除非打印字符，粗暴式过滤xss可疑字符串
+                    $arr[$key]
+                        = htmlentities(strip_tags($value)); //去除 HTML 和 PHP 标记并转换为HTML实体
                 } else {
                     $this->SafeFilter($arr[$key]);
                 }
