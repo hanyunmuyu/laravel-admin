@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permissions;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -17,13 +17,19 @@ class PermissionSeeder extends Seeder
         //
         $permissionList = [
             [
-                'api_path' => '/login',
-                'title' => '登录',
+                'api_path' => '/admin/login',
+                'title'    => '登录',
                 'url_path' => '/login',
-            ]
+            ],
+            [
+                'api_path' => '/admin/role/list',
+                'title'    => '角色列表',
+                'url_path' => '/role/list',
+            ],
+
         ];
         foreach ($permissionList as $permission) {
-            Permissions::create($permission);
+            Permission::create($permission);
         }
     }
 }
