@@ -1,14 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::post('/login', [Admin\LoginController::class, 'login']);
-    Route::group(['middleware' => ['admin']], function () {
-        Route::get('/role/list', [Admin\RoleController::class, 'getRoleList']);
-        Route::delete('/role/delete', [Admin\RoleController::class, 'deleteRole']);
-        Route::get('/role/detail', [Admin\RoleController::class, 'getRoleDetail']);
-        Route::get('/list', [Admin\AdminController::class, 'index']);
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::group(['middleware' => [Admin::class]], function () {
+        Route::get('/role/list', [RoleController::class, 'getRoleList']);
+        Route::delete('/role/delete', [RoleController::class, 'deleteRole']);
+        Route::get('/role/detail', [RoleController::class, 'getRoleDetail']);
+        Route::get('/list', [AdminController::class, 'index']);
     });
 });

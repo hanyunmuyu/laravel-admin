@@ -17,7 +17,8 @@ class RoleController extends Controller
     public function __construct(
         RoleRepository $roleRepository,
         PermissionRepository $permissionRepository
-    ) {
+    )
+    {
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
     }
@@ -42,7 +43,7 @@ class RoleController extends Controller
         ];
         $msg = [
             'id.required' => 'id不可以为空',
-            'id.min'      => 'id不能小于 :min',
+            'id.min' => 'id不能小于 :min',
         ];
         $validator = Validator::make(
             $request->all(),
@@ -55,12 +56,12 @@ class RoleController extends Controller
         $roleId = $request->get('id');
         $role = $this->roleRepository->getRoleById($roleId);
         if (!$role) {
-            return $this->error(['role' => ['角色不存在']]);
+            return $this->error('角色不存在');
         }
         if ($this->roleRepository->deleteRole($roleId)) {
             return $this->success();
         }
-        return $this->error(['role' => ['删除失败']]);
+        return $this->error('删除失败');
     }
 
     public function updateRole(Request $request)
@@ -81,7 +82,7 @@ class RoleController extends Controller
         ];
         $msg = [
             'id.required' => 'id不可以为空',
-            'id.min'      => 'id不能小于 :min',
+            'id.min' => 'id不能小于 :min',
 
         ];
         $validator = Validator::make(
@@ -95,7 +96,7 @@ class RoleController extends Controller
         $roleId = $request->get('id');
         $role = $this->roleRepository->getRoleById($roleId);
         if (!$role) {
-            return $this->error(['role' => ['角色不存在']]);
+            return $this->error('角色不存在');
         }
         $permissions
             = $this->permissionRepository->getPermissionsByRoleId($roleId);

@@ -20,7 +20,7 @@ class LoginController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return JsonResponse
      */
@@ -29,16 +29,16 @@ class LoginController extends Controller
         $adminName = $request->get('name');
         $password = $request->get('password');
         $rules = [
-            'name'     => 'required|min:5|max:16',
+            'name' => 'required|min:5|max:16',
             'password' => 'required|min:6|max:16',
         ];
         $messages = [
-            'name.required'     => '用户名不可以为空',
-            'name.min'          => '用户名长度不可以小于:min位',
-            'name.max'          => '用户名长度不可以超过:max位',
+            'name.required' => '用户名不可以为空',
+            'name.min' => '用户名长度不可以小于:min位',
+            'name.max' => '用户名长度不可以超过:max位',
             'password.required' => '密码不可以为空',
-            'password.min'      => '密码长度不可以小于:min位',
-            'password.max'      => '密码长度不可以超过:max位',
+            'password.min' => '密码长度不可以小于:min位',
+            'password.max' => '密码长度不可以超过:max位',
         ];
         $validator = Validator::make(
             $request->all(),
@@ -46,18 +46,18 @@ class LoginController extends Controller
             $messages
         );
         if ($validator->fails()) {
-            return $this->error($validator->errors()->getMessages());
+            return $this->error($this->formatErrorMsg($validator->errors()));
         }
         $admin = $this->adminRepository->getAdminByName($adminName);;
         if (!$admin) {
-            return $this->error(['name' => ['用户不存在']]);
+            return $this->error('用户不存在');
         }
 
         if (!Hash::check($password, $admin->password)) {
-            return $this->error(['password' => ['密码错误']]);
+            return $this->error('密码错误');
         }
         if (!$token = auth('admin')->login($admin)) {
-            return $this->error(['auth' => ['认证失败']]);
+            return $this->error('认证失败');
         } else {
             return $this->success($this->respondWithToken($token,
                 $admin->toArray()));
@@ -73,9 +73,9 @@ class LoginController extends Controller
     {
         return [
             'access_token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in'   => auth('admin')->factory()->getTTL() * 60,
-            'admin'        => $admin,
+            'token_type' => 'bearer',
+            'expires_in' => auth('admin')->factory()->getTTL() * 60,
+            'admin' => $admin,
         ];
     }
 }

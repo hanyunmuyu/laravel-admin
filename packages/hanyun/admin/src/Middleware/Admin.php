@@ -21,7 +21,7 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         if (!auth('admin')->check()) {
-            return $this->error(['auth' => ['认证失败']]);
+            return $this->error('认证失败');
         }
         return $next($request);
     }

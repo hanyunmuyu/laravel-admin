@@ -11,9 +11,9 @@ use Illuminate\Support\Str;
 trait Response
 {
     /**
-     * @param  array   $data
-     * @param  string  $msg
-     * @param  int     $code
+     * @param array $data
+     * @param string $msg
+     * @param int $code
      *
      * @return JsonResponse
      */
@@ -37,13 +37,12 @@ trait Response
     }
 
     /**
-     * @param  array   $data
-     * @param  string  $msg
-     * @param  int     $code
-     *
+     * @param string $msg
+     * @param array $data
+     * @param int $code
      * @return JsonResponse
      */
-    protected function error($data = [], $msg = 'error', $code = 1)
+    protected function error($msg = 'error', $data = [], $code = 1)
     {
         return response()->json([
             'code' => $code, 'msg' => $msg, 'data' => $data
