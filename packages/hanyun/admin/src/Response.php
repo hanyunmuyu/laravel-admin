@@ -28,9 +28,7 @@ trait Response
     {
         foreach ($errors->getMessages() as $v) {
             if ($v) {
-                foreach ($v as $value) {
-                    return array_pop($value);
-                }
+                return array_pop($v);
             }
         }
         return '';

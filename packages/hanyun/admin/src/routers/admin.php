@@ -12,6 +12,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/role/list', [RoleController::class, 'getRoleList']);
         Route::delete('/role/delete', [RoleController::class, 'deleteRole']);
         Route::get('/role/detail', [RoleController::class, 'getRoleDetail']);
+        Route::post('/role/add', [RoleController::class, 'addRole']);
         Route::get('/list', [AdminController::class, 'index']);
     });
 });
