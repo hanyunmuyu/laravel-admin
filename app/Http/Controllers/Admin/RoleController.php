@@ -7,6 +7,7 @@ use App\Repositories\Admin\PermissionRepository;
 use App\Repositories\Admin\RoleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use OpenApi\Annotations as OA;
 
 class RoleController extends Controller
@@ -63,7 +64,6 @@ class RoleController extends Controller
     {
         $rule = [
             'id' => 'required|integer|min:1',
-
         ];
         $msg = [
             'id.required' => 'id不可以为空',
@@ -78,6 +78,34 @@ class RoleController extends Controller
             return $this->error($this->formatErrorMsg($validator->errors()));
         }
         $roleId = $request->get('id');
+        $role = $this->roleRepository->getRoleById($roleId);
+        if (!$role) {
+            return $this->error('角色不存在');
+        }
+        if ($this->roleRepository->deleteRole($roleId)) {
+            return $this->success();
+        }
+        return $this->error('删除失败');
+    }
+
+    public function delete($roleId)
+    {
+        $rule = [
+            'id' => 'required|integer|min:1',
+        ];
+        $msg = [
+            'id.integer' => 'id必须是数字',
+            'id.required' => 'id不可以为空',
+            'id.min' => 'id不能小于 :min',
+        ];
+        $validator = Validator::make(
+            ['id' => $roleId],
+            $rule,
+            $msg
+        );
+        if ($validator->fails()) {
+            return $this->error($this->formatErrorMsg($validator->errors()));
+        }
         $role = $this->roleRepository->getRoleById($roleId);
         if (!$role) {
             return $this->error('角色不存在');
