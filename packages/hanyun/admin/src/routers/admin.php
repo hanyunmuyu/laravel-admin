@@ -11,6 +11,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => [Admin::class]], function () {
         Route::get('/role/list', [RoleController::class, 'getRoleList']);
         Route::delete('/role/{roleId}', [RoleController::class, 'delete']);
+        Route::post('/role/{roleId}', [RoleController::class, 'updateRole']);
         Route::get('/role/detail', [RoleController::class, 'getRoleDetail']);
         Route::post('/role/add', [RoleController::class, 'addRole']);
         Route::get('/list', [AdminController::class, 'index']);

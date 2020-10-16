@@ -90,9 +90,44 @@ class RoleController extends Controller
         return $this->error('删除失败');
     }
 
-    public function updateRole(Request $request)
+    public function updateRole(Request $request, $roleId)
     {
-
+        $rule = [
+            'id' => 'required|integer|min:1',
+            'roleName' => 'required|min:2|max:16',
+        ];
+        $msg = [
+            'id.integer' => 'id必须是数字',
+            'id.required' => 'id不可以为空',
+            'id.min' => 'id不能小于 :min',
+            'roleName.required' => '角色名称不可以为空',
+            'roleName.min' => '角色名称长度不小于:min位',
+            'roleName.max' => '角色名称长度不小于:max位',
+        ];
+        $validator = Validator::make(
+            array_merge($request->all(), ['id' => $roleId]),
+            $rule,
+            $msg
+        );
+        if ($validator->fails()) {
+            return $this->error($this->formatErrorMsg($validator->errors()));
+        }
+        $role = $this->roleRepository->getRoleById($roleId);
+        if (!$role) {
+            return $this->error('角色不存在');
+        }
+        $roleName = $request->get('roleName');
+        if ($role->role_name == $roleName) {
+            return $this->success();
+        }
+        if ($this->roleRepository->getRoleByName($roleName)) {
+            return $this->error('角色已经存在');
+        }
+        $res = $this->roleRepository->updateRole($roleId, ['role_name' => $roleName]);
+        if ($res) {
+            return $this->success();
+        }
+        return $this->error();
     }
 
     public function getRolePermission(Request $request)
