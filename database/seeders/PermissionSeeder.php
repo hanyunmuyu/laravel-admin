@@ -30,6 +30,13 @@ class PermissionSeeder extends Seeder
                 'title' => '角色列表',
                 'url_path' => '/role/list',
             ],
+            [
+                'api_path' => '/admin/role/{roleId}',
+                'rule' => '/admin/role/*',
+                'method' => 'delete',
+                'title' => '删除角色',
+                'url_path' => '/role/delete',
+            ],
 
         ];
         foreach ($permissionList as $permission) {
