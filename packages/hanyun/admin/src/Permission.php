@@ -17,6 +17,9 @@ class Permission
     public static function check(Request $request)
     {
         $admin = $request->user('admin');
+        if ($admin->role_id === 1) {
+            return true;
+        }
         $pr = new PermissionRepository();
         $permissionList = $pr->getPermissionsByRoleId($admin->role_id);
         foreach ($permissionList as $value) {

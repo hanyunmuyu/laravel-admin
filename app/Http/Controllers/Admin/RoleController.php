@@ -61,7 +61,9 @@ class RoleController extends Controller
 
     public function delete(Request $request, $roleId)
     {
-        var_dump(Permission::check($request));
+        if (!Permission::check($request)) {
+            return $this->error('对不起你没有权限');
+        }
         $rule = [
             'id' => 'required|integer|min:1',
         ];
