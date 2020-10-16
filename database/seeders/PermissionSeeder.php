@@ -18,12 +18,16 @@ class PermissionSeeder extends Seeder
         $permissionList = [
             [
                 'api_path' => '/admin/login',
-                'title'    => '登录',
+                'rule' => '/admin/login',
+                'method' => 'post',
+                'title' => '登录',
                 'url_path' => '/login',
             ],
             [
                 'api_path' => '/admin/role/list',
-                'title'    => '角色列表',
+                'rule' => '/admin/role/list',
+                'method' => 'get',
+                'title' => '角色列表',
                 'url_path' => '/role/list',
             ],
 
