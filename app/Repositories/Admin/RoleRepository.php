@@ -14,6 +14,11 @@ class RoleRepository
             ->paginate();
     }
 
+    public function getRoleByName($roleName)
+    {
+        return Role::where('role_name', '=', $roleName)
+            ->first();
+    }
     public function addRole($role)
     {
         return Role::create($role);

@@ -31,14 +31,13 @@ class RoleController extends Controller
 
     public function addRole(Request $request)
     {
-
         $rule = [
-            'roleName' => 'required|min:6|max|16',
+            'roleName' => 'required|min:2|max:16',
         ];
         $msg = [
-            'roleName.required' => ':attribute 不可以为空',
-            'roleName.min' => ':attribute 长度不能小于 :min',
-            'roleName.max' => ':attribute 不能大于 :max',
+            'roleName.required' => '角色名称不可以为空',
+            'roleName.min' => '角色名称长度不能小于:min位',
+            'roleName.max' => '角色名称长度不能大于:max位',
         ];
         $validator = Validator::make(
             $request->all(),
@@ -48,11 +47,20 @@ class RoleController extends Controller
         if ($validator->fails()) {
             return $this->error($this->formatErrorMsg($validator->errors()));
         }
+        $roleName = $request->get('roleName');
+        $role = $this->roleRepository->getRoleByName($roleName);
+        if ($role) {
+            return $this->error('角色已经存在');
+        }
+        $data['role_name'] = $roleName;
+        if ($this->roleRepository->addRole($data)) {
+            return $this->success();
+        }
+        return $this->error('创建失败，请稍后重试');
     }
 
     public function deleteRole(Request $request)
     {
-
         $rule = [
             'id' => 'required|integer|min:1',
 
