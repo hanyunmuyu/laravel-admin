@@ -18,4 +18,9 @@ class AdminRepository
     {
         return Admin::where('name', '=', $name)->first();
     }
+    
+    public function getAdminById($adminId)
+    {
+        return Admin::find($adminId);
+    }
 }

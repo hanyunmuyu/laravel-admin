@@ -10,16 +10,24 @@ use OpenApi\Annotations as OA;
 class AdminController extends Controller
 {
     private $adminRepository;
-
+    
     public function __construct(AdminRepository $adminRepository)
     {
         $this->adminRepository = $adminRepository;
     }
-
+    
     public function index()
     {
         $adminList = $this->adminRepository->getAdminList();
         $adminList->toArray();
+        
         return $this->success();
+    }
+    
+    public function info(Request $request)
+    {
+        $admin = $request->user('admin');
+        
+        return $this->success($admin->toArray());
     }
 }

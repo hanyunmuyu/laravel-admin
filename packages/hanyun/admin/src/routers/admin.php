@@ -15,5 +15,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/role/detail', [RoleController::class, 'getRoleDetail']);
         Route::post('/role/add', [RoleController::class, 'addRole']);
         Route::get('/list', [AdminController::class, 'index']);
+        Route::get('/admin/info', [AdminController::class, 'info']);
     });
 });
