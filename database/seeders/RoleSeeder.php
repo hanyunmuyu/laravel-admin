@@ -21,10 +21,13 @@ class RoleSeeder extends Seeder
             ],
             [
                 'role_name' => '编辑',
-            ]
+            ],
         ];
-        foreach ($roleList as $role) {
-            Role::create($role);
+        for ($i = 0; $i < 200; $i++) {
+            foreach ($roleList as $role) {
+                $role['role_name'] = $role['role_name'].$i;
+                Role::create($role);
+            }
         }
     }
 }
