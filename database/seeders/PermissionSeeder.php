@@ -17,30 +17,48 @@ class PermissionSeeder extends Seeder
         //
         $permissionList = [
             [
-                'api_path' => '/admin/login',
-                'rule' => '/admin/login',
-                'method' => 'post',
-                'title' => '登录',
-                'url_path' => '/login',
-            ],
-            [
-                'api_path' => '/admin/role/list',
-                'rule' => '/admin/role/list',
+                'api_path' => '',
+                'rule' => '',
                 'method' => 'get',
-                'title' => '角色列表',
-                'url_path' => '/role/list',
+                'title' => '首页',
+                'path' => '/',
+                'parent_id' => 0,
+                'children' => []
             ],
             [
-                'api_path' => '/admin/role/{roleId}',
-                'rule' => '/admin/role/*',
-                'method' => 'delete',
-                'title' => '删除角色',
-                'url_path' => '/role/delete',
-            ],
+                'api_path' => '',
+                'rule' => '',
+                'method' => 'get',
+                'title' => '角色管理',
+                'path' => '/',
+                'parent_id' => 0,
+                'children' => [
+                    [
+                        'api_path' => '/admin/role/list',
+                        'rule' => '/admin/role/list',
+                        'method' => 'get',
+                        'title' => '角色列表',
+                        'path' => '/',
+                        'parent_id' => 0,
+                    ]
+                ]
+            ]
 
         ];
         foreach ($permissionList as $permission) {
-            Permission::create($permission);
+            $children = $permission['children'];
+            unset($permission['children']);
+            $result = Permission::create($permission);
+            if (!$children) {
+                continue;
+            }
+            if ($result) {
+                unset($children['children']);
+                foreach ($children as $val) {
+                    $val['parent_id'] = $result->id;
+                    Permission::create($val);
+                }
+            }
         }
     }
 }
