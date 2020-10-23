@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Role;
+use App\Models\RolePermission;
 
 class RoleRepository
 {
@@ -19,6 +20,7 @@ class RoleRepository
         return Role::where('role_name', '=', $roleName)
             ->first();
     }
+
     public function addRole($role)
     {
         return Role::create($role);
@@ -37,5 +39,15 @@ class RoleRepository
     public function getRoleById($roleId)
     {
         return Role::find($roleId);
+    }
+
+    public function addRolePermissin($data)
+    {
+        return RolePermission::insert($data);
+    }
+
+    public function deleteRolePermission($roleId)
+    {
+        return RolePermission::where('role_id', '=', $roleId)->delete();
     }
 }

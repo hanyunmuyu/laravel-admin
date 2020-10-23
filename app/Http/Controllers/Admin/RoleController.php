@@ -115,19 +115,34 @@ class RoleController extends Controller
         if ($validator->fails()) {
             return $this->error($this->formatErrorMsg($validator->errors()));
         }
+        $roleName = $request->get('roleName');
+        $admin = $request->user('admin');
+        if ($roleId == 1 && $admin->id > 1) {
+            return $this->error('对不起！你没有权限修改超级管理员的权限');
+        }
         $role = $this->roleRepository->getRoleById($roleId);
         if (!$role) {
             return $this->error('角色不存在');
         }
-        $roleName = $request->get('roleName');
-        if ($role->role_name == $roleName) {
-            return $this->success();
-        }
-        if ($this->roleRepository->getRoleByName($roleName)) {
+        $role1 = $this->roleRepository->getRoleByName($roleName);
+        if ($role1 && $roleId != $role1->id) {
             return $this->error('角色已经存在');
         }
-        $res = $this->roleRepository->updateRole($roleId,
-            ['role_name' => $roleName]);
+        $res = $this->roleRepository->updateRole($roleId, ['role_name' => $roleName]);
+
+        $permissionList = $request->get('permissionList');
+
+        if ($permissionList) {
+            $permission = [];
+            foreach ($permissionList as $value) {
+                $tmp = [];
+                $tmp['role_id'] = $roleId;
+                $tmp['permission_id'] = $value;
+                $permission[] = $tmp;
+            }
+            $this->roleRepository->deleteRolePermission($roleId);
+            $this->roleRepository->addRolePermissin($permission);
+        }
         if ($res) {
             return $this->success();
         }

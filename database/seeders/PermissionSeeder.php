@@ -23,6 +23,7 @@ class PermissionSeeder extends Seeder
                 'title' => '首页',
                 'path' => '/',
                 'parent_id' => 0,
+                'is_menu' => 1,
                 'children' => []
             ],
             [
@@ -32,6 +33,7 @@ class PermissionSeeder extends Seeder
                 'title' => '角色管理',
                 'path' => '/',
                 'parent_id' => 0,
+                'is_menu' => 1,
                 'children' => [
                     [
                         'api_path' => '/admin/role/list',
@@ -40,6 +42,7 @@ class PermissionSeeder extends Seeder
                         'title' => '角色列表',
                         'path' => '/',
                         'parent_id' => 0,
+                        'is_menu' => 1,
                     ]
                 ]
             ]
