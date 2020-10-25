@@ -40,7 +40,7 @@ class PermissionSeeder extends Seeder
                         'rule' => '/admin/role/list',
                         'method' => 'get',
                         'title' => '角色列表',
-                        'path' => '/',
+                        'path' => '/role/list',
                         'parent_id' => 0,
                         'is_menu' => 1,
                     ]
