@@ -18,9 +18,13 @@ class AdminRepository
     {
         return Admin::where('name', '=', $name)->first();
     }
-    
+
     public function getAdminById($adminId)
     {
         return Admin::find($adminId);
+    }
+    public function deleteAdmin($adminId)
+    {
+        return Admin::where('id', '=', $adminId)->delete();
     }
 }

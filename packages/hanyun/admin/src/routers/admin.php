@@ -17,6 +17,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/list', [AdminController::class, 'index']);
         Route::get('/admin/info', [AdminController::class, 'info']);
         Route::get('/admin/list', [AdminController::class, 'getAdminList']);
+        Route::delete('/admin/{adminId}', [AdminController::class, 'deleteAdmin']);
 
     });
 });
