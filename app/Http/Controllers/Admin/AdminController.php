@@ -35,4 +35,9 @@ class AdminController extends Controller
         $mao['permissionList'] = $permissionList->toArray();
         return $this->success($mao);
     }
+    public function getAdminList(Request $request)
+    {
+        $adminList = $this->adminRepository->getAdminList();
+        return $this->success($adminList->toArray());
+    }
 }

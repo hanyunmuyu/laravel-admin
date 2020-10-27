@@ -29,8 +29,11 @@ class AdminSeeder extends Seeder
                 'role_id' => 2
             ]
         ];
-        foreach ($adminList as $admin) {
-            Admin::create($admin);
+        for ($i = 1; $i < 100; $i++) {
+            foreach ($adminList as $admin) {
+                $admin['name'] = $admin['name'] . '-' . $i;
+                Admin::create($admin);
+            }
         }
     }
 }
