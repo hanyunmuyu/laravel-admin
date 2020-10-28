@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Admin\AdminRepository;
 use App\Repositories\Admin\PermissionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Annotations as OA;
 
@@ -72,13 +73,19 @@ class AdminController extends Controller
     {
         $rule = [
             'id' => 'required|min:1|integer',
+            'roleId' => 'required|min:1|integer',
             'name' => 'required|min:2|max:24',
-            'password' => 'required|min:6|max:24',
+            'password' => 'sometimes|required|min:6|max:24',
         ];
         $msg = [
             'id.required' => '管理员id不可以为空',
             'id.min' => '管理员id不能小于:min位',
             'id.max' => '管理员id不能大于:max位',
+            'password.required' => '密码不可以为空',
+            'password.min' => '密码长度不能小于:min位',
+            'password.max' => '密码长度不能大于:max位',
+            'roleId.required' => '角色id不可以为空',
+            'roleId.min' => '角色id不能小于:min位',
         ];
         $validator = Validator::make(
             array_merge($request->all(), ['id' => $adminId]),
@@ -96,7 +103,15 @@ class AdminController extends Controller
         if ($admin1 && $admin1->id != $adminId) {
             return $this->error('管理员已经存在');
         }
-        $res = $this->adminRepository->updateAdminInfo($adminId, $request->all());
+        $name = $request->get('name');
+        $password = $request->get('password');
+        if ($password) {
+            $data['password'] = Hash::make($password);
+        }
+        $roleId = $request->get('roleId');
+        $data['name'] = $name;
+        $data['role_id'] = $roleId;
+        $res = $this->adminRepository->updateAdminInfo($adminId, $data);
         if ($res) {
             return $this->success();
         }

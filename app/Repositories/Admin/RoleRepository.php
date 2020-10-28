@@ -12,7 +12,7 @@ class RoleRepository
     public function getRoleList()
     {
         return Role::orderby('id', 'desc')
-            ->paginate();
+            ->get();
     }
 
     public function getRoleByName($roleName)
