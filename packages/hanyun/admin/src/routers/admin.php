@@ -18,6 +18,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/admin/info', [AdminController::class, 'info']);
         Route::get('/admin/list', [AdminController::class, 'getAdminList']);
         Route::delete('/admin/{adminId}', [AdminController::class, 'deleteAdmin']);
-
+        Route::post('/admin/{adminId}', [AdminController::class, 'updateAdmin']);
     });
 });

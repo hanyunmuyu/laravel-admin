@@ -27,4 +27,8 @@ class AdminRepository
     {
         return Admin::where('id', '=', $adminId)->delete();
     }
+    public function updateAdminInfo($adminId, $data)
+    {
+        return Admin::where('id', '=', $adminId)->update($data);
+    }
 }
