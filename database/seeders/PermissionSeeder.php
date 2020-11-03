@@ -63,6 +63,24 @@ class PermissionSeeder extends Seeder
                         'path' => '/admin/list',
                         'parent_id' => 0,
                         'is_menu' => 1,
+                    ],
+                    [
+                        'api_path' => '/admin/{adminId}',
+                        'rule' => '/admin/admin/*',
+                        'method' => 'post',
+                        'title' => '编辑管理员信息',
+                        'path' => 'editAdmin',
+                        'parent_id' => 0,
+                        'is_menu' => 0,
+                    ],
+                    [
+                        'api_path' => '/admin/{adminId}',
+                        'rule' => '/admin/admin/*',
+                        'method' => 'delete',
+                        'title' => '删除管理员',
+                        'path' => 'deleteAdmin',
+                        'parent_id' => 0,
+                        'is_menu' => 0,
                     ]
                 ]
             ]
