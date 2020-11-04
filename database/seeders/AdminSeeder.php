@@ -22,18 +22,15 @@ class AdminSeeder extends Seeder
                 'password' => Hash::make('123456abc'),
                 'role_id' => 1
             ],
-
             [
                 'name' => 'hanyun',
                 'password' => Hash::make('123456abc'),
                 'role_id' => 2
             ]
         ];
-        for ($i = 1; $i < 100; $i++) {
-            foreach ($adminList as $admin) {
-                $admin['name'] = $admin['name'] . '-' . $i;
-                Admin::create($admin);
-            }
+        foreach ($adminList as $admin) {
+            $admin['name'] = $admin['name'];
+            Admin::create($admin);
         }
     }
 }

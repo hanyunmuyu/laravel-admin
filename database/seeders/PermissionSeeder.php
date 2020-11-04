@@ -43,6 +43,24 @@ class PermissionSeeder extends Seeder
                         'path' => '/role/list',
                         'parent_id' => 0,
                         'is_menu' => 1,
+                    ],
+                    [
+                        'api_path' => '/admin/role/{roleId}',
+                        'rule' => '/admin/role/*',
+                        'method' => 'delete',
+                        'title' => '删除角色',
+                        'path' => 'deleteRole',
+                        'parent_id' => 0,
+                        'is_menu' => 1,
+                    ],
+                    [
+                        'api_path' => '/admin/role/{roleId}',
+                        'rule' => '/admin/role/*',
+                        'method' => 'post',
+                        'title' => '编辑角色',
+                        'path' => 'editRole',
+                        'parent_id' => 0,
+                        'is_menu' => 1,
                     ]
                 ]
             ],
