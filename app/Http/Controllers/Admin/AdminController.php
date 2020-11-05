@@ -45,9 +45,10 @@ class AdminController extends Controller
     public function deleteAdmin($adminId)
     {
         $rule = [
-            'adminId' => 'required|min:1',
+            'adminId' => 'required|integer|min:1',
         ];
         $msg = [
+            'adminId.integer' => 'id必须是数字',
             'adminId.required' => '管理员id不可以为空',
             'adminId.min' => '管理员id不能小于:min位',
         ];
@@ -58,6 +59,10 @@ class AdminController extends Controller
         );
         if ($validator->fails()) {
             return $this->error($this->formatErrorMsg($validator->errors()));
+        }
+        //强制类型转换  PHP Boolean比较
+        if (intval($adminId) === 1) {
+            return $this->error('你不能删除超级管理员');
         }
         $admin = $this->adminRepository->getAdminById($adminId);
         if (!$admin) {

@@ -17,8 +17,7 @@ class RoleController extends Controller
     public function __construct(
         RoleRepository $roleRepository,
         PermissionRepository $permissionRepository
-    )
-    {
+    ) {
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
     }
@@ -81,6 +80,9 @@ class RoleController extends Controller
         );
         if ($validator->fails()) {
             return $this->error($this->formatErrorMsg($validator->errors()));
+        }
+        if (!Permission::check($request)) {
+            return $this->error('你没有删除角色的权限');
         }
         $role = $this->roleRepository->getRoleById($roleId);
         if (!$role) {
@@ -154,7 +156,6 @@ class RoleController extends Controller
 
     public function getRolePermission(Request $request)
     {
-
     }
 
     public function getRoleDetail($roleId)
