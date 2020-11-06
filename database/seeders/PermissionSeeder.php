@@ -20,8 +20,8 @@ class PermissionSeeder extends Seeder
                 'api_path' => '',
                 'rule' => '',
                 'method' => 'get',
-                'title' => '首页',
-                'path' => '/',
+                'title' => '仪表盘',
+                'path' => '/admin/dashboard',
                 'parent_id' => 0,
                 'is_menu' => 1,
                 'children' => []
@@ -31,7 +31,7 @@ class PermissionSeeder extends Seeder
                 'rule' => '',
                 'method' => 'get',
                 'title' => '角色管理',
-                'path' => '/role',
+                'path' => '/admin/role',
                 'parent_id' => 0,
                 'is_menu' => 1,
                 'children' => [
@@ -40,7 +40,7 @@ class PermissionSeeder extends Seeder
                         'rule' => '/admin/role/list',
                         'method' => 'get',
                         'title' => '角色列表',
-                        'path' => '/role/list',
+                        'path' => '/admin/role/list',
                         'parent_id' => 0,
                         'is_menu' => 1,
                         'children' => [
@@ -81,7 +81,7 @@ class PermissionSeeder extends Seeder
                 'rule' => '',
                 'method' => 'get',
                 'title' => '管理员管理',
-                'path' => '/admin',
+                'path' => '/admin/list',
                 'parent_id' => 0,
                 'is_menu' => 1,
                 'children' => [
@@ -90,7 +90,7 @@ class PermissionSeeder extends Seeder
                         'rule' => '/admin/admin/list',
                         'method' => 'get',
                         'title' => '管理员列表',
-                        'path' => '/admin/list',
+                        'path' => '/admin/admin/list',
                         'parent_id' => 0,
                         'is_menu' => 1,
                         'children' => [

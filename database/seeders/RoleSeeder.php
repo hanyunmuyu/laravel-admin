@@ -24,7 +24,6 @@ class RoleSeeder extends Seeder
             ],
         ];
         foreach ($roleList as $role) {
-            $role['role_name'] = $role['role_name'];
             Role::create($role);
         }
     }
