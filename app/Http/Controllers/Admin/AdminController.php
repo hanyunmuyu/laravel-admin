@@ -8,7 +8,6 @@ use App\Repositories\Admin\PermissionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use OpenApi\Annotations as OA;
 
 class AdminController extends Controller
 {
@@ -32,16 +31,22 @@ class AdminController extends Controller
     public function info(Request $request)
     {
         $admin = $request->user('admin');
-        $permissionList = $this->permissionRepository->getPermissionsByRoleId($admin->role_id);
-        $mao['admin'] = $admin->toArray();
-        $mao['permissionList'] = $permissionList->toArray();
-        return $this->success($mao);
+        return $this->success($admin->toArray());
     }
+
+    public function getAdminPermission(Request $request)
+    {
+        $admin = $request->user('admin');
+        $permissionList = $this->permissionRepository->getPermissionsByRoleId($admin->role_id);
+        return $this->success($permissionList->toArray());
+    }
+
     public function getAdminList(Request $request)
     {
         $adminList = $this->adminRepository->getAdminList();
         return $this->success($adminList->toArray());
     }
+
     public function deleteAdmin($adminId)
     {
         $rule = [
@@ -74,6 +79,7 @@ class AdminController extends Controller
         }
         return $this->error('删除错误，请重试！');
     }
+
     public function updateAdmin(Request $request, $adminId)
     {
         $rule = [
