@@ -81,6 +81,9 @@ class RoleController extends Controller
         if ($validator->fails()) {
             return $this->error($this->formatErrorMsg($validator->errors()));
         }
+        if (intval($roleId)===1) {
+            return $this->error('该角色不可以被删除！');
+        }
         if (!Permission::check($request)) {
             return $this->error('你没有删除角色的权限');
         }
