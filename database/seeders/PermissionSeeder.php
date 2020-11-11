@@ -45,15 +45,6 @@ class PermissionSeeder extends Seeder
                         'is_menu' => 1,
                         'children' => [
                             [
-                                'api_path' => '/admin/role/list',
-                                'rule' => '/admin/role/list',
-                                'method' => 'get',
-                                'title' => '查看角色列表',
-                                'path' => 'roleList',
-                                'parent_id' => 0,
-                                'is_menu' => 1,
-                            ],
-                            [
                                 'api_path' => '/admin/role/{roleId}',
                                 'rule' => '/admin/role/*',
                                 'method' => 'delete',
@@ -103,15 +94,6 @@ class PermissionSeeder extends Seeder
                         'parent_id' => 0,
                         'is_menu' => 1,
                         'children' => [
-                            [
-                                'api_path' => '/admin/admin/list',
-                                'rule' => '/admin/admin/list',
-                                'method' => 'get',
-                                'title' => '查看管理员列表',
-                                'path' => 'adminList',
-                                'parent_id' => 0,
-                                'is_menu' => 0,
-                            ],
                             [
                                 'api_path' => '/admin/{adminId}',
                                 'rule' => '/admin/admin/*',

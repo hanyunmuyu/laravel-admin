@@ -17,7 +17,8 @@ class RoleController extends Controller
     public function __construct(
         RoleRepository $roleRepository,
         PermissionRepository $permissionRepository
-    ) {
+    )
+    {
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
     }
@@ -33,11 +34,13 @@ class RoleController extends Controller
     {
         $rule = [
             'roleName' => 'required|min:2|max:16',
+            'permissionList' => 'required'
         ];
         $msg = [
             'roleName.required' => '角色名称不可以为空',
             'roleName.min' => '角色名称长度不能小于:min位',
             'roleName.max' => '角色名称长度不能大于:max位',
+            'roleName.permissionList' => '角色权限不可以为空',
         ];
         $validator = Validator::make(
             $request->all(),
@@ -53,7 +56,16 @@ class RoleController extends Controller
             return $this->error('角色已经存在');
         }
         $data['role_name'] = $roleName;
-        if ($this->roleRepository->addRole($data)) {
+        if ($role = $this->roleRepository->addRole($data)) {
+            $permissionList = $request->get('permissionList');
+            $data = [];
+            foreach ($permissionList as $permission) {
+                $tmp = [];
+                $tmp['role_id'] = $role->id;
+                $tmp['permission_id'] = $permission;
+                $data[] = $tmp;
+            }
+            $this->roleRepository->addRolePermissin($data);
             return $this->success();
         }
 
@@ -81,7 +93,7 @@ class RoleController extends Controller
         if ($validator->fails()) {
             return $this->error($this->formatErrorMsg($validator->errors()));
         }
-        if (intval($roleId)===1) {
+        if (intval($roleId) === 1) {
             return $this->error('该角色不可以被删除！');
         }
         if (!Permission::check($request)) {
