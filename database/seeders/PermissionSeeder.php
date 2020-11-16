@@ -116,7 +116,60 @@ class PermissionSeeder extends Seeder
                     ],
 
                 ]
+            ],
+            [
+                'api_path' => '',
+                'rule' => '',
+                'method' => 'get',
+                'title' => '类目管理',
+                'path' => '/admin/catalog',
+                'parent_id' => 0,
+                'is_menu' => 1,
+                'children' => [
+                    [
+                        'api_path' => '/admin/admin/list',
+                        'rule' => '/admin/admin/list',
+                        'method' => 'get',
+                        'title' => '分类管理',
+                        'path' => '/admin/catalog/category/list',
+                        'parent_id' => 0,
+                        'is_menu' => 1,
+                        'children' => [
+                            [
+                                'api_path' => '/admin/{adminId}',
+                                'rule' => '/admin/admin/*',
+                                'method' => 'post',
+                                'title' => '新增分类',
+                                'path' => '/admin/catalog/category/add',
+                                'parent_id' => 0,
+                                'is_menu' => 0,
+                            ]
+                        ]
+                    ],
+                    [
+                        'api_path' => '/admin/admin/list',
+                        'rule' => '/admin/admin/list',
+                        'method' => 'get',
+                        'title' => '产品列表',
+                        'path' => '/admin/catalog/product/list',
+                        'parent_id' => 0,
+                        'is_menu' => 1,
+                        'children' => [
+                            [
+                                'api_path' => '/admin/{adminId}',
+                                'rule' => '/admin/admin/*',
+                                'method' => 'post',
+                                'title' => '新增产品',
+                                'path' => '/admin/catalog/product/add',
+                                'parent_id' => 0,
+                                'is_menu' => 0,
+                            ]
+                        ]
+                    ],
+
+                ]
             ]
+
 
         ];
         foreach ($permissionList as $permission) {
