@@ -15,7 +15,7 @@ class UploadController extends Controller
         return [
             'name' => '',
             'status' => 'done',
-            'url' => asset('storage' . ltrim($path, 'public')),
+            'url' => ltrim($path, 'public'),
             'thumbUrl' => ''
         ];
     }

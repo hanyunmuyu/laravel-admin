@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Product;
+use App\Models\ProductImg;
 
 class ProductRepository
 {
@@ -23,6 +24,7 @@ class ProductRepository
     {
         return Product::where('product_name', '=', $productName)->first();
     }
+
     public function deleteProduct($productId)
     {
         return Product::where('id', '=', $productId)->delete();
@@ -31,5 +33,10 @@ class ProductRepository
     public function addProduct($data)
     {
         return Product::create($data);
+    }
+
+    public function addProductImg($data)
+    {
+        return ProductImg::insert($data);
     }
 }

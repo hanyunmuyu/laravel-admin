@@ -69,6 +69,17 @@ class ProductController extends Controller
         }
         $res = $this->productRepository->addProduct($request->all());
         if ($res) {
+            $data = [];
+            $imgList = $request->get('imgList');
+            foreach ($imgList as $img) {
+                $tmp = [];
+                $tmp['product_id'] = $res->id;
+                $tmp['img_url'] = $img;
+                $data[] = $tmp;
+            }
+            if ($data) {
+                $this->productRepository->addProductImg($data);
+            }
             return $this->success();
         }
         return $this->error('服务端错误，请重试！');
