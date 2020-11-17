@@ -39,4 +39,9 @@ class ProductRepository
     {
         return ProductImg::insert($data);
     }
+
+    public function getProductImgList($productId)
+    {
+        return ProductImg::where('product_id', '=', $productId)->get();
+    }
 }

@@ -84,4 +84,14 @@ class ProductController extends Controller
         }
         return $this->error('服务端错误，请重试！');
     }
+
+    public function getProductDetail($productId)
+    {
+        $product = $this->productRepository->getProductById($productId);
+        if (!$product) {
+            return $this->error('产品不存在');
+        }
+        $product->imgList = $this->productRepository->getProductImgList($productId)->toArray();
+        return $this->success($product->toArray());
+    }
 }

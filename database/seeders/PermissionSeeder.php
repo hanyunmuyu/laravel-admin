@@ -163,6 +163,15 @@ class PermissionSeeder extends Seeder
                                 'path' => '/admin/catalog/product/add',
                                 'parent_id' => 0,
                                 'is_menu' => 0,
+                            ],
+                            [
+                                'api_path' => '/admin/{adminId}',
+                                'rule' => '/admin/admin/*',
+                                'method' => 'post',
+                                'title' => '编辑产品',
+                                'path' => '/admin/catalog/product/edit/:productId',
+                                'parent_id' => 0,
+                                'is_menu' => 0,
                             ]
                         ]
                     ],
