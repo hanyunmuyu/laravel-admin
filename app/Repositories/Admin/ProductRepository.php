@@ -19,8 +19,17 @@ class ProductRepository
         return Product::find($productId);
     }
 
+    public function getProductByProductName($productName)
+    {
+        return Product::where('product_name', '=', $productName)->first();
+    }
     public function deleteProduct($productId)
     {
         return Product::where('id', '=', $productId)->delete();
+    }
+
+    public function addProduct($data)
+    {
+        return Product::create($data);
     }
 }
