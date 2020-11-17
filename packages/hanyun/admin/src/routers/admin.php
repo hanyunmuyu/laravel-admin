@@ -22,9 +22,10 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/admin/list', [AdminController::class, 'getAdminList']);
         Route::delete('/admin/{adminId}', [AdminController::class, 'deleteAdmin']);
         Route::post('/admin/{adminId}', [AdminController::class, 'updateAdmin']);
-        Route::get('/permission/list',[PermissionController::class,'getAllPermission']);
+        Route::get('/permission/list', [PermissionController::class, 'getAllPermission']);
 
 
         Route::get('/product/list', [ProductController::class, 'getProductList']);
+        Route::delete('/product/{productId}', [ProductController::class, 'deleteProduct']);
     });
 });

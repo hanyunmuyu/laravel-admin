@@ -21,4 +21,17 @@ class ProductController extends Controller
         $productList = $this->productRepository->getProductList();
         return $this->success($productList->toArray());
     }
+
+    public function deleteProduct($productId)
+    {
+        $product = $this->productRepository->getProductById($productId);
+        if (!$product) {
+            return $this->error('产品不存在');
+        }
+        if ($this->productRepository->deleteProduct($productId)) {
+            return $this->success();
+        }
+        return $this->error();
+
+    }
 }
