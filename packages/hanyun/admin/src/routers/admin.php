@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/product/{productId}', [ProductController::class, 'deleteProduct']);
         Route::post('/product', [ProductController::class, 'addProduct']);
         Route::get('/product/{productId}', [ProductController::class, 'getProductDetail']);
+        Route::put('/product/{productId}', [ProductController::class, 'updateProduct']);
         Route::post('/upload', [UploadController::class, 'upload']);
     });
 });

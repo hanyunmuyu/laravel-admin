@@ -40,8 +40,17 @@ class ProductRepository
         return ProductImg::insert($data);
     }
 
+    public function deleteProductImg($productId)
+    {
+        return ProductImg::where('product_id', '=', $productId)->delete();
+    }
     public function getProductImgList($productId)
     {
         return ProductImg::where('product_id', '=', $productId)->get();
+    }
+
+    public function updateProduct($productId, $product)
+    {
+        return Product::where('id', '=', $productId)->update($product);
     }
 }

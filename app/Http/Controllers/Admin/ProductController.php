@@ -94,4 +94,32 @@ class ProductController extends Controller
         $product->imgList = $this->productRepository->getProductImgList($productId)->toArray();
         return $this->success($product->toArray());
     }
+
+    public function updateProduct(Request $request, $productId)
+    {
+        $product = $this->productRepository->getProductById($productId);
+        if (!$product) {
+            return $this->error('产品不存在');
+        }
+        $data = $request->except('imgList');
+        $imgList = $request->get('imgList');
+        if ($imgList && is_array($imgList)) {
+            $imgData = [];
+            foreach ($imgList as $img) {
+                $tmp = [];
+                $tmp['product_id'] = $productId;
+                $tmp['img_url'] = $img;
+                $imgData[] = $tmp;
+            }
+            if ($imgData) {
+                $this->productRepository->deleteProductImg($productId);
+                $this->productRepository->addProductImg($imgData);
+            }
+        }
+        $res = $this->productRepository->updateProduct($productId, $data);
+        if ($res) {
+            return $this->success();
+        }
+        return $this->error('更新失败！');
+    }
 }
