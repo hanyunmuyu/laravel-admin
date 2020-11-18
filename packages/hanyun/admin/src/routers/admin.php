@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UploadController;
@@ -25,12 +26,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/admin/{adminId}', [AdminController::class, 'updateAdmin']);
         Route::get('/permission/list', [PermissionController::class, 'getAllPermission']);
 
+        Route::post('/upload', [UploadController::class, 'upload']);
 
         Route::get('/product/list', [ProductController::class, 'getProductList']);
         Route::delete('/product/{productId}', [ProductController::class, 'deleteProduct']);
         Route::post('/product', [ProductController::class, 'addProduct']);
         Route::get('/product/{productId}', [ProductController::class, 'getProductDetail']);
         Route::put('/product/{productId}', [ProductController::class, 'updateProduct']);
-        Route::post('/upload', [UploadController::class, 'upload']);
+        Route::get('/product/category/list', [ProductCategoryController::class, 'getCategoryList']);
+        Route::delete('/product/category/{categoryId}', [ProductCategoryController::class, 'deleteCategory']);
     });
 });
