@@ -35,5 +35,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::put('/product/{productId}', [ProductController::class, 'updateProduct']);
         Route::get('/product/category/list', [ProductCategoryController::class, 'getCategoryList']);
         Route::delete('/product/category/{categoryId}', [ProductCategoryController::class, 'deleteCategory']);
+        Route::post('/product/category', [ProductCategoryController::class, 'addCategory']);
     });
 });

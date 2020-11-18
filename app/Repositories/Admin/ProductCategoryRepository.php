@@ -14,6 +14,10 @@ class ProductCategoryRepository
             ->paginate();
     }
 
+    public function getCategoryByName($categoryName)
+    {
+        return ProductCategory::where('category_name', '=', $categoryName)->first();
+    }
     public function getCategoryById($categoryId)
     {
         return ProductCategory::find($categoryId);
@@ -22,5 +26,10 @@ class ProductCategoryRepository
     public function deleteCategory($categoryId)
     {
         return ProductCategory::where('id', '=', $categoryId)->delete();
+    }
+
+    public function addCategory($category)
+    {
+        return ProductCategory::create($category);
     }
 }

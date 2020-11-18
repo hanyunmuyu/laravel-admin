@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Repositories\Admin\ProductCategoryRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductCategoryController extends Controller
 {
@@ -33,5 +34,34 @@ class ProductCategoryController extends Controller
             return $this->success();
         }
         return $this->error('删除失败！稍后重试！');
+    }
+
+    public function addCategory(Request $request)
+    {
+        $rules = [
+            'category_name' => 'required',
+            'description' => 'required',
+        ];
+        $messages = [
+            'category_name.required' => '分类名称不可以为空',
+            'description.required' => '密码不可以为空',
+        ];
+        $validator = Validator::make(
+            $request->all(),
+            $rules,
+            $messages
+        );
+        if ($validator->fails()) {
+            return $this->error($this->formatErrorMsg($validator->errors()));
+        }
+        $category = $this->productCategoryRepository->getCategoryByName($request->get('category_name'));
+        if ($category) {
+            return $this->error('分类已经存在');
+        }
+        $res = $this->productCategoryRepository->addCategory($request->all());
+        if ($res) {
+            return $this->success();
+        }
+        return $this->error();
     }
 }
