@@ -19,7 +19,8 @@ class ProductController extends Controller
 
     public function getProductList(Request $request)
     {
-        $productList = $this->productRepository->getProductList();
+        $keyword = $request->get('keyword');
+        $productList = $this->productRepository->getProductList($keyword);
         return $this->success($productList->toArray());
     }
 

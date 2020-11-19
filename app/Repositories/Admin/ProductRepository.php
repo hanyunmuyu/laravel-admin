@@ -9,9 +9,15 @@ use App\Models\ProductImg;
 
 class ProductRepository
 {
-    public function getProductList()
+    public function getProductList($keyword = null)
     {
         return Product::orderby('id', 'desc')
+            ->where(function ($q) use ($keyword) {
+                if ($keyword) {
+                    $q->where('product_name', 'like', "%$keyword%")
+                        ->orWhere('model', 'like', "%$keyword%");
+                }
+            })
             ->paginate();
     }
 
@@ -44,6 +50,7 @@ class ProductRepository
     {
         return ProductImg::where('product_id', '=', $productId)->delete();
     }
+
     public function getProductImgList($productId)
     {
         return ProductImg::where('product_id', '=', $productId)->get();
