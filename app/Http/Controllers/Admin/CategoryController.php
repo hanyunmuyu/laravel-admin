@@ -67,4 +67,23 @@ class CategoryController extends Controller
         }
         return $this->error();
     }
+
+    public function getAllCategory()
+    {
+        $categoryList = $this->categoryRepository->getAllCategory();
+        $categoryTree = $this->generateCategoryTree($categoryList->toArray(), 0);
+        return $this->success($categoryTree);
+    }
+
+    private function generateCategoryTree($categoryList, $parentId = 0)
+    {
+        $parentCategory = [];
+        foreach ($categoryList as $k => $category) {
+            if ($category['parent_id'] == $parentId) {
+                $category['children'] = $this->generateCategoryTree($categoryList, $category['id']);
+                $parentCategory[] = $category;
+            }
+        }
+        return $parentCategory;
+    }
 }

@@ -38,4 +38,9 @@ class CategoryRepository
     {
         return Category::create($category);
     }
+
+    public function getAllCategory()
+    {
+        return Category::all();
+    }
 }
