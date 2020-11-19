@@ -18,6 +18,7 @@ class CreateProductCategoriesTable extends Migration
             $table->string('category_name')->unique();
             $table->unsignedBigInteger('parent_id')->default(0)->index();
             $table->text('description');
+            $table->unsignedTinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

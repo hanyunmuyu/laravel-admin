@@ -8,9 +8,14 @@ use App\Models\ProductCategory;
 
 class ProductCategoryRepository
 {
-    public function getProductCategoryList()
+    public function getProductCategoryList($keyword = null)
     {
         return ProductCategory::orderby('id', 'desc')
+            ->where(function ($q) use ($keyword) {
+                if ($keyword) {
+                    $q->where('category_name', 'like', "%$keyword%");
+                }
+            })
             ->paginate();
     }
 
@@ -18,6 +23,7 @@ class ProductCategoryRepository
     {
         return ProductCategory::where('category_name', '=', $categoryName)->first();
     }
+
     public function getCategoryById($categoryId)
     {
         return ProductCategory::find($categoryId);
