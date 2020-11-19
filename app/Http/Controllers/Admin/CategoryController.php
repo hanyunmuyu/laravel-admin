@@ -42,10 +42,12 @@ class CategoryController extends Controller
         $rules = [
             'category_name' => 'required',
             'description' => 'required',
+            'parent_id' => 'sometimes|integer'
         ];
         $messages = [
             'category_name.required' => '分类名称不可以为空',
             'description.required' => '密码不可以为空',
+            'parent_id.integer' => '父级分类id必须大于0',
         ];
         $validator = Validator::make(
             $request->all(),
