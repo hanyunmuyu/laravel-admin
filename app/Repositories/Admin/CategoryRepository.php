@@ -4,13 +4,13 @@
 namespace App\Repositories\Admin;
 
 
-use App\Models\ProductCategory;
+use App\Models\Category;
 
-class ProductCategoryRepository
+class CategoryRepository
 {
     public function getProductCategoryList($keyword = null)
     {
-        return ProductCategory::orderby('id', 'desc')
+        return Category::orderby('id', 'desc')
             ->where(function ($q) use ($keyword) {
                 if ($keyword) {
                     $q->where('category_name', 'like', "%$keyword%");
@@ -21,21 +21,21 @@ class ProductCategoryRepository
 
     public function getCategoryByName($categoryName)
     {
-        return ProductCategory::where('category_name', '=', $categoryName)->first();
+        return Category::where('category_name', '=', $categoryName)->first();
     }
 
     public function getCategoryById($categoryId)
     {
-        return ProductCategory::find($categoryId);
+        return Category::find($categoryId);
     }
 
     public function deleteCategory($categoryId)
     {
-        return ProductCategory::where('id', '=', $categoryId)->delete();
+        return Category::where('id', '=', $categoryId)->delete();
     }
 
     public function addCategory($category)
     {
-        return ProductCategory::create($category);
+        return Category::create($category);
     }
 }

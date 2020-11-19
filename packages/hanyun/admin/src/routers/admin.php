@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UploadController;
@@ -33,8 +33,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/product', [ProductController::class, 'addProduct']);
         Route::get('/product/{productId}', [ProductController::class, 'getProductDetail']);
         Route::put('/product/{productId}', [ProductController::class, 'updateProduct']);
-        Route::get('/product/category/list', [ProductCategoryController::class, 'getCategoryList']);
-        Route::delete('/product/category/{categoryId}', [ProductCategoryController::class, 'deleteCategory']);
-        Route::post('/product/category', [ProductCategoryController::class, 'addCategory']);
+        Route::get('/category/list', [CategoryController::class, 'getCategoryList']);
+        Route::delete('/category/{categoryId}', [CategoryController::class, 'deleteCategory']);
+        Route::post('/category', [CategoryController::class, 'addCategory']);
     });
 });

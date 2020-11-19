@@ -3,34 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\ProductCategoryRepository;
+use App\Repositories\Admin\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ProductCategoryController extends Controller
+class CategoryController extends Controller
 {
     //
-    private $productCategoryRepository;
+    private $categoryRepository;
 
-    public function __construct(ProductCategoryRepository $productCategoryRepository)
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->productCategoryRepository = $productCategoryRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function getCategoryList(Request $request)
     {
         $keyword = $request->get('keyword');
-        $productCategoryList = $this->productCategoryRepository->getProductCategoryList($keyword);
+        $productCategoryList = $this->categoryRepository->getProductCategoryList($keyword);
         return $this->success($productCategoryList->toArray());
     }
 
     public function deleteCategory(Request $request, $categoryId)
     {
-        $category = $this->productCategoryRepository->getCategoryById($categoryId);
+        $category = $this->categoryRepository->getCategoryById($categoryId);
         if (!$category) {
             return $this->error('分类不存在');
         }
-        $res = $this->productCategoryRepository->deleteCategory($categoryId);
+        $res = $this->categoryRepository->deleteCategory($categoryId);
         if ($res) {
             return $this->success();
         }
@@ -55,11 +55,11 @@ class ProductCategoryController extends Controller
         if ($validator->fails()) {
             return $this->error($this->formatErrorMsg($validator->errors()));
         }
-        $category = $this->productCategoryRepository->getCategoryByName($request->get('category_name'));
+        $category = $this->categoryRepository->getCategoryByName($request->get('category_name'));
         if ($category) {
             return $this->error('分类已经存在');
         }
-        $res = $this->productCategoryRepository->addCategory($request->all());
+        $res = $this->categoryRepository->addCategory($request->all());
         if ($res) {
             return $this->success();
         }
