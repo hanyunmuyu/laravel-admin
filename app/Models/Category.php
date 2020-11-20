@@ -13,5 +13,7 @@ class Category extends Model
         'category_name',
         'description',
         'parent_id',
+        'status',
+
     ];
 }

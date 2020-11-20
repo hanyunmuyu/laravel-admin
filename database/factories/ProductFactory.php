@@ -29,6 +29,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 0, 100),
             'quantity' => $this->faker->numberBetween(0, 10000),
             'img' => $this->faker->imageUrl(),
+            'status' => $this->faker->randomElement([0, 1]),
         ];
     }
 }
