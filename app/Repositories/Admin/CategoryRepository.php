@@ -41,6 +41,6 @@ class CategoryRepository
 
     public function getAllCategory()
     {
-        return Category::all();
+        return Category::where('status', '=', 1)->get();
     }
 }
