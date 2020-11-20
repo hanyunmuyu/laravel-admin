@@ -106,6 +106,7 @@ class ProductController extends Controller
             return $this->error('产品不存在');
         }
         $product->imgList = $this->productRepository->getProductImgList($productId)->toArray();
+        $product->categoryIds = $this->productRepository->getProductCategoryList($productId)->pluck('category_id');
         return $this->success($product->toArray());
     }
 
@@ -115,7 +116,7 @@ class ProductController extends Controller
         if (!$product) {
             return $this->error('产品不存在');
         }
-        $data = $request->except('imgList');
+        $data = $request->except(['imgList', 'categoryIds']);
         $imgList = $request->get('imgList');
         if ($imgList && is_array($imgList)) {
             $imgData = [];
@@ -131,6 +132,20 @@ class ProductController extends Controller
             }
         }
         $res = $this->productRepository->updateProduct($productId, $data);
+        $categoryIds = $request->get('categoryIds');
+        if ($categoryIds) {
+            $categories = [];
+            foreach ($categoryIds as $categoryId) {
+                $tmp = [];
+                $tmp['category_id'] = $categoryId;
+                $tmp['product_id'] = $productId;
+                $categories[] = $tmp;
+            }
+            if ($categories) {
+                $this->productRepository->deleteProductCategory($productId);
+                $this->productRepository->addProductCategory($categories);
+            }
+        }
         if ($res) {
             return $this->success();
         }

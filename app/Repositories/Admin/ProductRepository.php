@@ -66,4 +66,13 @@ class ProductRepository
     {
         return ProductCategory::insert($data);
     }
+
+    public function deleteProductCategory($productId)
+    {
+        return ProductCategory::where('product_id', '=', $productId)->delete();
+    }
+    public function getProductCategoryList($productId)
+    {
+        return ProductCategory::where('product_id', '=', $productId)->get();
+    }
 }
