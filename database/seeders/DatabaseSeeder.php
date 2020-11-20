@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
+            ProductCategorySeeder::class,
             ProductImgSeeder::class,
 
         ]);

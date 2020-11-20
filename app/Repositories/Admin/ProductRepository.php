@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ProductImg;
 
 class ProductRepository
@@ -59,5 +60,10 @@ class ProductRepository
     public function updateProduct($productId, $product)
     {
         return Product::where('id', '=', $productId)->update($product);
+    }
+
+    public function addProductCategory($data)
+    {
+        return ProductCategory::insert($data);
     }
 }

@@ -46,7 +46,7 @@ class ProductController extends Controller
             'quantity' => 'required|min:0|integer',
         ];
         $messages = [
-            'product_name.required' => '用户名不可以为空',
+            'product_name.required' => '产品名称不可以为空',
             'description.required' => '密码不可以为空',
             'model.required' => '产品型号不可以为空',
             'price.required' => '价格不可以为空',
@@ -68,7 +68,7 @@ class ProductController extends Controller
         if ($product) {
             return $this->error('产品已经存在');
         }
-        $res = $this->productRepository->addProduct($request->all());
+        $res = $this->productRepository->addProduct($request->except('categoryIds'));
         if ($res) {
             $data = [];
             $imgList = $request->get('imgList');
@@ -80,6 +80,19 @@ class ProductController extends Controller
             }
             if ($data) {
                 $this->productRepository->addProductImg($data);
+            }
+            $categoryIds = $request->get('categoryIds');
+            if ($categoryIds) {
+                $categories = [];
+                foreach ($categoryIds as $categoryId) {
+                    $tmp = [];
+                    $tmp['category_id'] = $categoryId;
+                    $tmp['product_id'] = $res->id;
+                    $categories[] = $tmp;
+                }
+                if ($categories) {
+                    $this->productRepository->addProductCategory($categories);
+                }
             }
             return $this->success();
         }
