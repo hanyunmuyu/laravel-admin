@@ -143,6 +143,15 @@ class PermissionSeeder extends Seeder
                                 'path' => '/admin/catalog/category/add',
                                 'parent_id' => 0,
                                 'is_menu' => 0,
+                            ],
+                            [
+                                'api_path' => '/admin/{adminId}',
+                                'rule' => '/admin/admin/*',
+                                'method' => 'post',
+                                'title' => '编辑分类',
+                                'path' => '/admin/catalog/category/edit/:categoryId',
+                                'parent_id' => 0,
+                                'is_menu' => 0,
                             ]
                         ]
                     ],

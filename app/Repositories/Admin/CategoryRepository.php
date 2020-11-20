@@ -43,4 +43,9 @@ class CategoryRepository
     {
         return Category::where('status', '=', 1)->get();
     }
+
+    public function updateCategory($categoryId, $category)
+    {
+        return Category::where('id', '=', $categoryId)->update($category);
+    }
 }

@@ -86,4 +86,45 @@ class CategoryController extends Controller
         }
         return $parentCategory;
     }
+
+    public function getCategoryDetail(Request $request, $categoryId)
+    {
+        $category = $this->categoryRepository->getCategoryById($categoryId);
+        if (!$category) {
+            return $this->error('分类不存在');
+        }
+        return $this->success($category->toArray());
+    }
+
+    public function updateCategory(Request $request, $categoryId)
+    {
+
+        $rules = [
+            'category_name' => 'required',
+            'description' => 'required',
+            'parent_id' => 'sometimes|integer'
+        ];
+        $messages = [
+            'category_name.required' => '分类名称不可以为空',
+            'description.required' => '密码不可以为空',
+            'parent_id.integer' => '父级分类id必须大于0',
+        ];
+        $validator = Validator::make(
+            $request->all(),
+            $rules,
+            $messages
+        );
+        if ($validator->fails()) {
+            return $this->error($this->formatErrorMsg($validator->errors()));
+        }
+        $category = $this->categoryRepository->getCategoryById($categoryId);
+        if (!$category) {
+            return $this->error('分类不存在');
+        }
+        $res = $this->categoryRepository->updateCategory($categoryId, $request->all());
+        if ($res) {
+            return $this->success();
+        }
+        return $this->error('更新错误');
+    }
 }
