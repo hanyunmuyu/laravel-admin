@@ -18,7 +18,11 @@ class UserController extends Controller
 
     public function getUserList(Request $request)
     {
-        $userList = $this->userRepository->getUserList();
+        $name = $request->get('name');
+        $mobile = $request->get('mobile');
+        $startDate = $request->get('startDate');
+        $endDate = $request->get('endDate');
+        $userList = $this->userRepository->getUserList($name, $mobile, $startDate, $endDate);
         return $this->success($userList->toArray());
     }
 
