@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UploadController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -44,5 +45,8 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/order/list', [OrderController::class, 'getOrderList']);
         Route::delete('/order/{orderNumber}', [OrderController::class, 'deleteOrder']);
+
+        Route::get('/user/list', [UserController::class, 'getUserList']);
+        Route::delete('/user/{userId}', [UserController::class, 'deleteUser']);
     });
 });

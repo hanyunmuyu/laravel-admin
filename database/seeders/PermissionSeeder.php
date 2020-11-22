@@ -217,6 +217,37 @@ class PermissionSeeder extends Seeder
                     ]
                 ]
             ],
+            [
+                'api_path' => '',
+                'rule' => '',
+                'method' => '',
+                'title' => '用户管理',
+                'path' => '/admin/user',
+                'parent_id' => 0,
+                'is_menu' => 1,
+                'children' => [
+                    [
+                        'api_path' => '/admin/user/list',
+                        'rule' => '/admin/user/list',
+                        'method' => 'get',
+                        'title' => '橘色列表',
+                        'path' => '/admin/user/list',
+                        'parent_id' => 0,
+                        'is_menu' => 0,
+                        'children' => [
+                            [
+                                'api_path' => '/admin/user/{userId}',
+                                'rule' => '/admin/user/*',
+                                'method' => 'delete',
+                                'title' => '删除用户',
+                                'path' => 'deleteUser',
+                                'parent_id' => 0,
+                                'is_menu' => 0,
+                            ]
+                        ]
+                    ]
+                ]
+            ],
 
 
         ];
