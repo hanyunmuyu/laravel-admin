@@ -184,9 +184,28 @@ class PermissionSeeder extends Seeder
                             ]
                         ]
                     ],
-
                 ]
-            ]
+            ],
+            [
+                'api_path' => '',
+                'rule' => '',
+                'method' => '',
+                'title' => '订单管理',
+                'path' => '/admin/order',
+                'parent_id' => 0,
+                'is_menu' => 1,
+                'children' => [
+                    [
+                        'api_path' => '/admin/order/list',
+                        'rule' => '/admin/order/list',
+                        'method' => 'get',
+                        'title' => '订单列表',
+                        'path' => '/admin/order/list',
+                        'parent_id' => 0,
+                        'is_menu' => 0,
+                    ]
+                ]
+            ],
 
 
         ];

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -40,5 +41,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/category/{categoryId}', [CategoryController::class, 'getCategoryDetail']);
         Route::put('/category/{categoryId}', [CategoryController::class, 'updateCategory']);
         Route::post('/category', [CategoryController::class, 'addCategory']);
+
+        Route::get('/order/list', [OrderController::class, 'getOrderList']);
     });
 });
