@@ -203,6 +203,17 @@ class PermissionSeeder extends Seeder
                         'path' => '/admin/order/list',
                         'parent_id' => 0,
                         'is_menu' => 0,
+                        'children' => [
+                            [
+                                'api_path' => '/admin/order/{orderNumber}',
+                                'rule' => '/admin/order/*',
+                                'method' => 'delete',
+                                'title' => '删除订单',
+                                'path' => 'deleteOrder',
+                                'parent_id' => 0,
+                                'is_menu' => 0,
+                            ]
+                        ]
                     ]
                 ]
             ],
