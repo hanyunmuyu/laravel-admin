@@ -21,10 +21,11 @@ class OrderController extends Controller
 
     public function getOrderList(Request $request)
     {
-        $keyword = $request->get('keyword');
+        $orderNumber = $request->get('orderNumber');
+        $mobile = $request->get('mobile');
         $startDate = $request->get('startDate');
         $endDate = $request->get('endDate');
-        $orderList = $this->orderRepository->getOrderList($keyword, $startDate, $endDate);
+        $orderList = $this->orderRepository->getOrderList($orderNumber, $mobile, $startDate, $endDate);
         foreach ($orderList as $k => $order) {
             if ($user = $this->userRepository->getUserById($order->user_id)) {
                 $order->user = $user->toArray();
