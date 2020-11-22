@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Order;
+use App\Models\OrderAddress;
 
 class OrderRepository
 {
@@ -17,5 +18,10 @@ class OrderRepository
                 }
             })
             ->paginate();
+    }
+
+    public function getOrderAddressByOrderAddress($orderNumber)
+    {
+        return OrderAddress::where('order_number', '=', $orderNumber)->first();
     }
 }

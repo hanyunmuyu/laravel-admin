@@ -29,6 +29,11 @@ class OrderController extends Controller
             } else {
                 $order->user = new \stdClass();
             }
+            if ($address = $this->orderRepository->getOrderAddressByOrderAddress($order->order_number)) {
+                $order->address = $address->toArray();
+            } else {
+                $order->address = new \stdClass();
+            }
             $orderList[$k] = $order;
         }
         return $this->success($orderList->toArray());
