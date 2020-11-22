@@ -43,5 +43,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/category', [CategoryController::class, 'addCategory']);
 
         Route::get('/order/list', [OrderController::class, 'getOrderList']);
+        Route::delete('/order/{orderNumber}', [OrderController::class, 'deleteOrder']);
     });
 });

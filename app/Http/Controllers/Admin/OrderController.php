@@ -41,4 +41,17 @@ class OrderController extends Controller
         }
         return $this->success($orderList->toArray());
     }
+
+    public function deleteOrder(Request $request, $orderNumber)
+    {
+        $order = $this->orderRepository->getNumberByOrderNumber($orderNumber);
+        if (!$order) {
+            return $this->error('订单号不存在');
+        }
+        $res = $this->orderRepository->deleteOrder($orderNumber);
+        if ($res) {
+            return $this->success();
+        }
+        return $this->error('删除失败！');
+    }
 }

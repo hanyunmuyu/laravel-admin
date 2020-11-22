@@ -41,4 +41,14 @@ class OrderRepository
     {
         return OrderAddress::where('order_number', '=', $orderNumber)->first();
     }
+
+    public function getNumberByOrderNumber($orderNumber)
+    {
+        return Order::where('order_number', '=', $orderNumber)->first();
+    }
+
+    public function deleteOrder($orderNumber)
+    {
+        return Order::where('order_number', '=', $orderNumber)->delete();
+    }
 }
