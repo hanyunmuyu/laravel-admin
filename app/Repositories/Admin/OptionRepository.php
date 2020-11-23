@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Option;
+use App\Models\OptionType;
 use App\Models\OptionValue;
 
 class OptionRepository
@@ -22,5 +23,10 @@ class OptionRepository
     public function getOptionValueList($optionId)
     {
         return OptionValue::where('option_id', '=', $optionId)->get();
+    }
+
+    public function getOptionTypeList()
+    {
+        return OptionType::all();
     }
 }

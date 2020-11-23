@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'admin'], function () {
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/category/all', [CategoryController::class, 'getAllCategory']);
+    Route::get('/option/type/list', [OptionController::class, 'getOptionTypeList']);
 
     Route::group(['middleware' => [Admin::class]], function () {
         Route::get('/role/list', [RoleController::class, 'getRoleList']);
