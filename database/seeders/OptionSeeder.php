@@ -25,7 +25,6 @@ class OptionSeeder extends Seeder
                 'type' => 'checkbox',
                 'name' => '复选框',
                 'description' => '选择多个'
-
             ],
             [
                 'type' => 'select',

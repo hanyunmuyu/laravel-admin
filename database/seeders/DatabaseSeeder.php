@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             CategorySeeder::class,
             OptionSeeder::class,
+            OptionValueSeeder::class,
             ProductSeeder::class,
             ProductCategorySeeder::class,
             ProductImgSeeder::class,

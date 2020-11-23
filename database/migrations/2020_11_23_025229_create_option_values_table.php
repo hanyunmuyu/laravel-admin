@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionsTable extends Migration
+class CreateOptionValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('options', function (Blueprint $table) {
+        Schema::create('option_values', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->unsignedBigInteger('option_id')->index();
             $table->string('name');
-            $table->unsignedTinyInteger('is_single')->default(1)->comment('1表示是单选；0表示多选');
-            $table->string('description');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('options');
+        Schema::dropIfExists('option_values');
     }
 }
