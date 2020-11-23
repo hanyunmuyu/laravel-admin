@@ -184,6 +184,26 @@ class PermissionSeeder extends Seeder
                             ]
                         ]
                     ],
+                    [
+                        'api_path' => '/admin/option/list',
+                        'rule' => '/admin/option/list',
+                        'method' => 'get',
+                        'title' => '选项列表',
+                        'path' => '/admin/option/list',
+                        'parent_id' => 0,
+                        'is_menu' => 1,
+                        'children' => [
+                            [
+                                'api_path' => '/admin/option/{optionId}',
+                                'rule' => '/admin/option/*',
+                                'method' => 'get',
+                                'title' => '选项列表',
+                                'path' => '/admin/option/detail/:optionId',
+                                'parent_id' => 0,
+                                'is_menu' => 0
+                            ]
+                        ]
+                    ]
                 ]
             ],
             [

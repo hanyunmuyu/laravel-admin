@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
@@ -48,5 +49,9 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/user/list', [UserController::class, 'getUserList']);
         Route::delete('/user/{userId}', [UserController::class, 'deleteUser']);
+
+        Route::get('/option/list', [OptionController::class, 'getOptionList']);
+        Route::get('/option/{optionId}', [OptionController::class, 'getOptionDetail']);
+
     });
 });
