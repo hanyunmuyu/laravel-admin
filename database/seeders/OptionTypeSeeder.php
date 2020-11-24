@@ -40,7 +40,27 @@ class OptionTypeSeeder extends Seeder
                         'description' => '只能选择一个'
                     ]
                 ]
+            ],
+            [
+                'type' => '',
+                'name' => '输入框',
+                'is_single' => 1,
+                'children' => [
+                    [
+                        'type' => 'input',
+                        'name' => '文本框',
+                        'is_single' => 1,
+                        'description' => '输入少量文字'
+                    ],
+                    [
+                        'type' => 'textarea',
+                        'name' => '文本域',
+                        'is_single' => 1,
+                        'description' => '输入多行文字'
+                    ]
+                ]
             ]
+
         ];
         foreach ($optionTypeList as $optionType) {
             $t = $optionType;
