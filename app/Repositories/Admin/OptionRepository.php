@@ -29,4 +29,19 @@ class OptionRepository
     {
         return OptionType::all();
     }
+
+    public function updateOption($optionId, $data)
+    {
+        return Option::where('id', '=', $optionId)->update($data);
+    }
+
+    public function deleteOptionValue($optionId)
+    {
+        return OptionValue::where('option_id', '=', $optionId)->delete();
+    }
+
+    public function addOptionValue($data)
+    {
+        return OptionValue::insert($data);
+    }
 }

@@ -16,7 +16,7 @@ class OptionValueSeeder extends Seeder
     {
         //
         OptionValue::factory()
-            ->times(100)
+            ->times(50)
             ->create();
     }
 }

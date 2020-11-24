@@ -26,7 +26,8 @@ class OptionValueFactory extends Factory
         return [
             //
             'option_id' => $this->faker->randomElement($optionList->pluck('id')),
-            'name' => $this->faker->name(),
+            'value' => $this->faker->name(),
+            'sort_order' => $this->faker->numberBetween(1, 1000),
 
         ];
     }

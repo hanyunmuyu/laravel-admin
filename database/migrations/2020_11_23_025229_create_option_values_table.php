@@ -16,7 +16,8 @@ class CreateOptionValuesTable extends Migration
         Schema::create('option_values', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('option_id')->index();
-            $table->string('name');
+            $table->string('value');
+            $table->bigInteger('sort_order');
             $table->timestamps();
         });
     }

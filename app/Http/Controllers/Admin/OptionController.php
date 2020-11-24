@@ -47,4 +47,27 @@ class OptionController extends Controller
         }
         return $data;
     }
+
+    public function updateOption(Request $request, $optionId)
+    {
+        $option = $this->optionRepository->getOptionById($optionId);
+        if (!$option) {
+            return $this->error('选项不存在');
+        }
+        $this->optionRepository->updateOption($optionId, $request->only(['name', 'type', 'description']));
+        $optionValueList = $request->get('valueList');
+        $data = [];
+        foreach ($optionValueList as $value) {
+            $tmp = [];
+            $tmp['option_id'] = $optionId;
+            $tmp['value'] = $value['value'];
+            $tmp['sort_order'] = $value['sortOrder'];
+            $data[] = $tmp;
+        }
+        if ($data) {
+            $this->optionRepository->deleteOptionValue($optionId);
+            $this->optionRepository->addOptionValue($data);
+        }
+        return $this->success();
+    }
 }

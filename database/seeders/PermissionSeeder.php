@@ -197,8 +197,8 @@ class PermissionSeeder extends Seeder
                                 'api_path' => '/admin/option/{optionId}',
                                 'rule' => '/admin/option/*',
                                 'method' => 'get',
-                                'title' => '选项详情',
-                                'path' => '/admin/option/detail/:optionId',
+                                'title' => '添加选项',
+                                'path' => '/admin/option/add',
                                 'parent_id' => 0,
                                 'is_menu' => 0
                             ],
@@ -206,8 +206,8 @@ class PermissionSeeder extends Seeder
                                 'api_path' => '/admin/option/{optionId}',
                                 'rule' => '/admin/option/*',
                                 'method' => 'get',
-                                'title' => '添加选项',
-                                'path' => '/admin/option/add',
+                                'title' => '编辑选项',
+                                'path' => '/admin/option/edit/:optionId',
                                 'parent_id' => 0,
                                 'is_menu' => 0
                             ]
