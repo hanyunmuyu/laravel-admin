@@ -44,4 +44,9 @@ class OptionRepository
     {
         return OptionValue::insert($data);
     }
+
+    public function addOption($data)
+    {
+        return Option::create($data);
+    }
 }

@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/option/list', [OptionController::class, 'getOptionList']);
         Route::get('/option/{optionId}', [OptionController::class, 'getOptionDetail']);
         Route::put('/option/{optionId}', [OptionController::class, 'updateOption']);
+        Route::post('/option', [OptionController::class, 'addOption']);
 
         Route::get('/option/type/list', [OptionController::class, 'getOptionTypeList']);
 

@@ -70,4 +70,24 @@ class OptionController extends Controller
         }
         return $this->success();
     }
+
+    public function addOption(Request $request)
+    {
+        $res = $this->optionRepository->addOption($request->only(['name', 'type', 'description']));
+        if ($res) {
+            $optionValueList = $request->get('valueList');
+            $data = [];
+            foreach ($optionValueList as $value) {
+                $tmp = [];
+                $tmp['option_id'] = $res->id;
+                $tmp['value'] = $value['value'];
+                $tmp['sort_order'] = $value['sortOrder'];
+                $data[] = $tmp;
+            }
+            if ($data) {
+                $this->optionRepository->addOptionValue($data);
+            }
+        }
+        return $this->success();
+    }
 }
