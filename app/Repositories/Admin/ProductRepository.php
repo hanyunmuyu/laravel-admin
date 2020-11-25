@@ -7,6 +7,7 @@ namespace App\Repositories\Admin;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImg;
+use App\Models\ProductOption;
 
 class ProductRepository
 {
@@ -74,5 +75,10 @@ class ProductRepository
     public function getProductCategoryList($productId)
     {
         return ProductCategory::where('product_id', '=', $productId)->get();
+    }
+
+    public function addProductOption($data)
+    {
+        return ProductOption::insert($data);
     }
 }

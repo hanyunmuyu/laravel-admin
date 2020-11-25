@@ -38,6 +38,8 @@ class ProductController extends Controller
 
     public function addProduct(Request $request)
     {
+//        0: {option_value_id: 2, quantity: 1, sub_stock: 0, add_price: 1}
+
         $rules = [
             'product_name' => 'required',
             'description' => 'required',
@@ -69,6 +71,14 @@ class ProductController extends Controller
             return $this->error('产品已经存在');
         }
         $res = $this->productRepository->addProduct($request->except('categoryIds'));
+        $optionList = $request->get('optionList');
+        if ($optionList) {
+            foreach ($optionList as $key => $option) {
+                $option['product_id'] = $res->id;
+                $optionList[$key] = $option;
+            }
+            $this->productRepository->addProductOption($optionList);
+        }
         if ($res) {
             $data = [];
             $imgList = $request->get('imgList');
