@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Admin\OptionRepository;
 use App\Repositories\Admin\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,10 +12,11 @@ class ProductController extends Controller
 {
     //
     private $productRepository;
-
-    public function __construct(ProductRepository $productRepository)
+    private $optionRepository;
+    public function __construct(ProductRepository $productRepository,OptionRepository $optionRepository)
     {
         $this->productRepository = $productRepository;
+        $this->optionRepository = $optionRepository;
     }
 
     public function getProductList(Request $request)
@@ -38,8 +40,6 @@ class ProductController extends Controller
 
     public function addProduct(Request $request)
     {
-//        0: {option_value_id: 2, quantity: 1, sub_stock: 0, add_price: 1}
-
         $rules = [
             'product_name' => 'required',
             'description' => 'required',
@@ -74,8 +74,12 @@ class ProductController extends Controller
         $optionList = $request->get('optionList');
         if ($optionList) {
             foreach ($optionList as $key => $option) {
-                $option['product_id'] = $res->id;
-                $optionList[$key] = $option;
+                $detail = $this->productRepository->getOptionValueDetail($option['option_value_id']);
+                if ($detail) {
+                    $option['product_id'] = $res->id;
+                    $option['option_id'] = $detail->option_id;
+                    $optionList[$key] = $option;
+                }
             }
             $this->productRepository->addProductOption($optionList);
         }
@@ -126,7 +130,7 @@ class ProductController extends Controller
         if (!$product) {
             return $this->error('产品不存在');
         }
-        $data = $request->except(['imgList', 'categoryIds']);
+        $data = $request->except(['imgList', 'categoryIds', 'optionList']);
         $imgList = $request->get('imgList');
         if ($imgList && is_array($imgList)) {
             $imgData = [];
@@ -155,6 +159,25 @@ class ProductController extends Controller
                 $this->productRepository->deleteProductCategory($productId);
                 $this->productRepository->addProductCategory($categories);
             }
+        }
+        $optionList = $request->get('optionList');
+        if ($optionList) {
+            $optionValueIdList = [];
+            foreach ($optionList as $key => $option) {
+                $detail = $this->productRepository->getOptionValueDetail($option['option_value_id']);
+                if ($detail) {
+                    $optionValueIdList[] = $option['option_value_id'];
+                    $option['product_id'] = $productId;
+                    $option['option_id'] = $detail->option_id;
+                    $optionList[$key] = $option;
+                }
+
+            }
+            if ($optionValueIdList) {
+                $productOptionList = $this->optionRepository->getOptionValueListByIdList($optionValueIdList);
+                $this->productRepository->deleteProductOptionByOptionIdList($productOptionList->pluck('option_id'));
+            }
+            $this->productRepository->addProductOption($optionList);
         }
         if ($res) {
             return $this->success();

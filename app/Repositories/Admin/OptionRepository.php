@@ -25,6 +25,10 @@ class OptionRepository
         return OptionValue::where('option_id', '=', $optionId)->get();
     }
 
+    public function getOptionValueListByIdList($idList)
+    {
+        return OptionValue::whereIn('id', $idList)->get();
+    }
     public function getOptionTypeList()
     {
         return OptionType::all();

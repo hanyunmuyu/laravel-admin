@@ -18,6 +18,7 @@ class CreateProductOptionsTable extends Migration
         Schema::create('product_options', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('option_id')->index();
             $table->unsignedBigInteger('option_value_id')->index();
             $table->unsignedInteger('quantity')->default(0);
             $table->unsignedInteger('sub_stock')->default(0)->comment('减去库存数');

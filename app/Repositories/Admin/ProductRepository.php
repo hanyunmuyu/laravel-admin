@@ -4,6 +4,7 @@
 namespace App\Repositories\Admin;
 
 
+use App\Models\OptionValue;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImg;
@@ -80,5 +81,14 @@ class ProductRepository
     public function addProductOption($data)
     {
         return ProductOption::insert($data);
+    }
+
+    public function deleteProductOptionByOptionIdList($optionIdList)
+    {
+        return ProductOption::whereIn('option_id', $optionIdList)->delete();
+    }
+    public function getOptionValueDetail($optionValueId)
+    {
+        return OptionValue::find($optionValueId);
     }
 }
