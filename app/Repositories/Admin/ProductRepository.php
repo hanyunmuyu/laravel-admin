@@ -73,6 +73,7 @@ class ProductRepository
     {
         return ProductCategory::where('product_id', '=', $productId)->delete();
     }
+
     public function getProductCategoryList($productId)
     {
         return ProductCategory::where('product_id', '=', $productId)->get();
@@ -87,8 +88,14 @@ class ProductRepository
     {
         return ProductOption::whereIn('option_id', $optionIdList)->delete();
     }
+
     public function getOptionValueDetail($optionValueId)
     {
         return OptionValue::find($optionValueId);
+    }
+
+    public function getProductOptionByProductId($productId)
+    {
+        return ProductOption::where('product_id', '=', $productId)->get();
     }
 }

@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/product', [ProductController::class, 'addProduct']);
         Route::get('/product/{productId}', [ProductController::class, 'getProductDetail']);
         Route::put('/product/{productId}', [ProductController::class, 'updateProduct']);
+        Route::get('/product/option/{productId}', [ProductController::class, 'getProductOption']);
         Route::get('/category/list', [CategoryController::class, 'getCategoryList']);
         Route::delete('/category/{categoryId}', [CategoryController::class, 'deleteCategory']);
         Route::get('/category/{categoryId}', [CategoryController::class, 'getCategoryDetail']);

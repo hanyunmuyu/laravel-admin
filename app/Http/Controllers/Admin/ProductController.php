@@ -13,7 +13,8 @@ class ProductController extends Controller
     //
     private $productRepository;
     private $optionRepository;
-    public function __construct(ProductRepository $productRepository,OptionRepository $optionRepository)
+
+    public function __construct(ProductRepository $productRepository, OptionRepository $optionRepository)
     {
         $this->productRepository = $productRepository;
         $this->optionRepository = $optionRepository;
@@ -183,5 +184,20 @@ class ProductController extends Controller
             return $this->success();
         }
         return $this->error('更新失败！');
+    }
+
+    public function getProductOption($productId)
+    {
+        $productOptionList = $this->productRepository->getProductOptionByProductId($productId);
+        return $this->success($this->_generateProductOptionGroup($productOptionList->toArray()));
+    }
+
+    private function _generateProductOptionGroup($productOptionList)
+    {
+        $data = [];
+        foreach ($productOptionList as $productOption) {
+            $data[$productOption['option_id']][] = $productOption;
+        }
+        return array_values($data);
     }
 }
