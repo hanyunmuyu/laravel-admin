@@ -5,14 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Option extends Model
+class OrderProductOption extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'type',
-        'name',
-        'description',
-        'is_single',
-    ];
 }

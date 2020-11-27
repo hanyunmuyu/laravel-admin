@@ -19,17 +19,20 @@ class OptionSeeder extends Seeder
             [
                 'type' => 'radio',
                 'name' => '颜色',
-                'description' => '智能选择一个'
+                'is_single' => 1,
+                'description' => '多个里面选择一个'
             ],
             [
                 'type' => 'radio',
                 'name' => '内存',
-                'description' => '智能选择一个'
+                'is_single' => 1,
+                'description' => '多个里面选择一个'
             ],
             [
                 'type' => 'checkbox',
                 'name' => '保险',
-                'description' => '选多个'
+                'is_single' => 0,
+                'description' => '多个里面选择多个'
             ],
         ];
         Option::insert($optionList);
