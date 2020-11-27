@@ -54,4 +54,14 @@ class OrderController extends Controller
         }
         return $this->error('删除失败！');
     }
+
+    public function getOrderDetail(Request $request,$orderId)
+    {
+        $order = $this->orderRepository->getOrderById($orderId);
+        $productList = $this->orderRepository->getOrderProductListByOrderId($orderId);
+        $data = [];
+        $data['order'] = $order->toArray();
+        $data['productList'] = $productList->toArray();
+        return $this->success($data);
+    }
 }

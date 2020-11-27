@@ -6,6 +6,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Order;
 use App\Models\OrderAddress;
+use App\Models\OrderProduct;
 use Illuminate\Support\Facades\DB;
 
 class OrderRepository
@@ -50,5 +51,15 @@ class OrderRepository
     public function deleteOrder($orderNumber)
     {
         return Order::where('order_number', '=', $orderNumber)->delete();
+    }
+
+    public function getOrderById($orderId)
+    {
+        return Order::find($orderId);
+    }
+
+    public function getOrderProductListByOrderId($orderId)
+    {
+        return OrderProduct::where('order_id', '=', $orderId)->get();
     }
 }

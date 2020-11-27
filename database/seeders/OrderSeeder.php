@@ -16,7 +16,7 @@ class OrderSeeder extends Seeder
     {
         //
         Order::factory()
-            ->times(500)
+            ->times(50)
             ->create();
     }
 }

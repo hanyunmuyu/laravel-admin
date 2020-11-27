@@ -31,8 +31,7 @@ class DatabaseSeeder extends Seeder
             ProductImgSeeder::class,
             OrderSeeder::class,
             OrderAddressSeeder::class,
-
-
+            OrderProductSeeder::class,
         ]);
     }
 }

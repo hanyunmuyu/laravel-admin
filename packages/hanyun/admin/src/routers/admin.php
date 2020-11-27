@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/order/list', [OrderController::class, 'getOrderList']);
         Route::delete('/order/{orderNumber}', [OrderController::class, 'deleteOrder']);
+        Route::get('/order/detail/{orderId}', [OrderController::class, 'getOrderDetail']);
 
         Route::get('/user/list', [UserController::class, 'getUserList']);
         Route::delete('/user/{userId}', [UserController::class, 'deleteUser']);
