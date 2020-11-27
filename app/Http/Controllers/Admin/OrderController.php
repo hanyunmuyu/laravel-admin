@@ -59,9 +59,13 @@ class OrderController extends Controller
     {
         $order = $this->orderRepository->getOrderById($orderId);
         $productList = $this->orderRepository->getOrderProductListByOrderId($orderId);
+        $orderAddress = $this->orderRepository->getOrderAddressByOrderId($orderId);
+        $user=$this->userRepository->getUserById($order->user_id);
         $data = [];
         $data['order'] = $order->toArray();
         $data['productList'] = $productList->toArray();
+        $data['orderAddress'] = $orderAddress->toArray();
+        $data['user'] = $user->toArray();
         return $this->success($data);
     }
 }

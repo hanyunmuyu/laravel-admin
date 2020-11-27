@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             OrderAddressSeeder::class,
             OrderProductSeeder::class,
+            OrderAddressSeeder::class,
+
         ]);
     }
 }

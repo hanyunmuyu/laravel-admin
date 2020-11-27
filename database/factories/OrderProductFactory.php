@@ -22,16 +22,16 @@ class OrderProductFactory extends Factory
      */
     public function definition()
     {
-        $orderList = Order::all();
+        $orderList = Order::select('id')->get();
         return [
             //
             'order_id' => $this->faker->randomElement($orderList->pluck('id')),
             'product_id' => $this->faker->numberBetween(1, 100),
             'name' => $this->faker->name,
             'model' => $this->faker->name,
-            'quantity'=>$this->faker->numberBetween(1,10),
-            'price'=>$this->faker->randomFloat(2,1,100),
-            'total'=>$this->faker->randomFloat(2,1,100),
+            'quantity' => $this->faker->numberBetween(1, 10),
+            'price' => $this->faker->randomFloat(2, 1, 100),
+            'total' => $this->faker->randomFloat(2, 1, 100),
         ];
     }
 }

@@ -62,4 +62,9 @@ class OrderRepository
     {
         return OrderProduct::where('order_id', '=', $orderId)->get();
     }
+
+    public function getOrderAddressByOrderId($orderId)
+    {
+        return OrderAddress::find($orderId);
+    }
 }

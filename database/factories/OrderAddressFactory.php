@@ -22,10 +22,10 @@ class OrderAddressFactory extends Factory
      */
     public function definition()
     {
-        $orderList = Order::select('order_number')->get();
+        $orderList = Order::select('id')->get();
         return [
             //
-            'order_number' => $this->faker->randomElement($orderList->pluck('order_number')),
+            'order_id' => $this->faker->randomElement($orderList->pluck('id')),
             'name' => $this->faker->name(),
             'mobile' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
