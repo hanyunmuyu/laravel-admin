@@ -38,10 +38,7 @@ class OrderRepository
             ->paginate();
     }
 
-    public function getOrderAddressByOrderAddress($orderNumber)
-    {
-        return OrderAddress::where('order_number', '=', $orderNumber)->first();
-    }
+
 
     public function getNumberByOrderNumber($orderNumber)
     {

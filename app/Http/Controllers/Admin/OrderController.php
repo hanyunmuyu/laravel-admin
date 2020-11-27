@@ -32,7 +32,7 @@ class OrderController extends Controller
             } else {
                 $order->user = new \stdClass();
             }
-            if ($address = $this->orderRepository->getOrderAddressByOrderAddress($order->order_number)) {
+            if ($address = $this->orderRepository->getOrderAddressByOrderId($order->id)) {
                 $order->address = $address->toArray();
             } else {
                 $order->address = new \stdClass();
@@ -55,12 +55,12 @@ class OrderController extends Controller
         return $this->error('删除失败！');
     }
 
-    public function getOrderDetail(Request $request,$orderId)
+    public function getOrderDetail(Request $request, $orderId)
     {
         $order = $this->orderRepository->getOrderById($orderId);
         $productList = $this->orderRepository->getOrderProductListByOrderId($orderId);
         $orderAddress = $this->orderRepository->getOrderAddressByOrderId($orderId);
-        $user=$this->userRepository->getUserById($order->user_id);
+        $user = $this->userRepository->getUserById($order->user_id);
         $data = [];
         $data['order'] = $order->toArray();
         $data['productList'] = $productList->toArray();
