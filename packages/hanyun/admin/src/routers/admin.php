@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserGlassesController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/option', [OptionController::class, 'addOption']);
 
         Route::get('/option/type/list', [OptionController::class, 'getOptionTypeList']);
+
+
+
+
+        Route::get('/user/glasses/list/{userId}', [UserGlassesController::class, 'getUserGlassesList']);
 
     });
 });
