@@ -34,4 +34,26 @@ class BrandController extends Controller
         }
         return $this->error('品牌不存在');
     }
+
+    public function getBrandDetail(Request $request, $brandId)
+    {
+        $brand = $this->brandRepository->getBrandById($brandId);
+        if ($brand) {
+            return $this->success($brand->toArray());
+        }
+        return $this->error('品牌不存在');
+    }
+
+    public function updateBrand(Request $request, $brandId)
+    {
+        $brand = $this->brandRepository->getBrandById($brandId);
+        if (!$brand) {
+            return $this->error('品牌不存在');
+        }
+        $res = $this->brandRepository->updateBrand($brandId, $request->all());
+        if ($res) {
+            return $this->success();
+        }
+        return $this->error('更新失败');
+    }
 }

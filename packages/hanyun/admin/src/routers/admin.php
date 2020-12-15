@@ -66,6 +66,8 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/brand/list', [BrandController::class, 'getBrandList']);
         Route::delete('/brand/{brandId}', [BrandController::class, 'deleteBrand']);
+        Route::get('/brand/{brandId}', [BrandController::class, 'getBrandDetail']);
+        Route::put('/brand/{brandId}', [BrandController::class, 'updateBrand']);
 
     });
 });

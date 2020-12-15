@@ -22,4 +22,10 @@ class BrandRepository
     {
         return Brand::find($brandId);
     }
+
+    public function updateBrand($brandId, $data)
+    {
+        return Brand::where('id', '=', $brandId)
+            ->update($data);
+    }
 }
