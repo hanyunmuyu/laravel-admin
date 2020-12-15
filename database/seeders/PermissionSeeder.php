@@ -136,6 +136,15 @@ class PermissionSeeder extends Seeder
                         'is_menu' => 1,
                         'children' => [
                             [
+                                'api_path' => '/admin/brand/list',
+                                'rule' => '/admin/brand/list',
+                                'method' => 'post',
+                                'title' => '品牌管理',
+                                'path' => '/admin/brand/list',
+                                'parent_id' => 0,
+                                'is_menu' => 0,
+                            ],
+                            [
                                 'api_path' => '/admin/{adminId}',
                                 'rule' => '/admin/admin/*',
                                 'method' => 'post',

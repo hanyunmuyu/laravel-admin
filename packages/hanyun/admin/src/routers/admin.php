@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OptionController;
@@ -61,9 +62,10 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/option/type/list', [OptionController::class, 'getOptionTypeList']);
 
 
-
-
         Route::get('/user/glasses/list/{userId}', [UserGlassesController::class, 'getUserGlassesList']);
+
+        Route::get('/brand/list', [BrandController::class, 'getBrandList']);
+        Route::delete('/brand/{brandId}', [BrandController::class, 'deleteBrand']);
 
     });
 });
