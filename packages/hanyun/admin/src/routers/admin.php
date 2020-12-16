@@ -64,6 +64,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/user/glasses/list/{userId}', [UserGlassesController::class, 'getUserGlassesList']);
 
+        Route::get('/brand/all', [BrandController::class, 'getAllBrand']);
         Route::get('/brand/list', [BrandController::class, 'getBrandList']);
         Route::delete('/brand/{brandId}', [BrandController::class, 'deleteBrand']);
         Route::get('/brand/{brandId}', [BrandController::class, 'getBrandDetail']);

@@ -28,4 +28,9 @@ class BrandRepository
         return Brand::where('id', '=', $brandId)
             ->update($data);
     }
+
+    public function getAllBrand()
+    {
+        return Brand::all();
+    }
 }

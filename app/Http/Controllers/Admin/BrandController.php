@@ -56,4 +56,10 @@ class BrandController extends Controller
         }
         return $this->error('更新失败');
     }
+
+    public function getAllBrand(Request $request)
+    {
+        $brands = $this->brandRepository->getAllBrand();
+        return $this->success($brands->toArray());
+    }
 }
