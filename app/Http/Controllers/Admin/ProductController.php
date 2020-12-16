@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Admin\BrandRepository;
 use App\Repositories\Admin\OptionRepository;
 use App\Repositories\Admin\ProductRepository;
 use Illuminate\Http\Request;
@@ -13,17 +14,26 @@ class ProductController extends Controller
     //
     private $productRepository;
     private $optionRepository;
-
-    public function __construct(ProductRepository $productRepository, OptionRepository $optionRepository)
+    private $brandRepository;
+    public function __construct(ProductRepository $productRepository, OptionRepository $optionRepository,BrandRepository $brandRepository)
     {
         $this->productRepository = $productRepository;
         $this->optionRepository = $optionRepository;
+        $this->brandRepository = $brandRepository;
     }
 
     public function getProductList(Request $request)
     {
         $keyword = $request->get('keyword');
         $productList = $this->productRepository->getProductList($keyword);
+        foreach ($productList as $key => $product) {
+            $brand = $this->brandRepository->getBrandById($product->brand_id);
+            if ($brand) {
+                $product->brand = $brand;
+            }else{
+                $product->brand = new \stdClass();
+            }
+        }
         return $this->success($productList->toArray());
     }
 
