@@ -280,6 +280,15 @@ class PermissionSeeder extends Seeder
                         'path' => '/admin/order/edit/:orderId',
                         'parent_id' => 0,
                         'is_menu' => 0,
+                    ],
+                    [
+                        'api_path' => '/admin/order/add',
+                        'rule' => '/admin/order/add',
+                        'method' => 'post',
+                        'title' => '添加订单',
+                        'path' => '/admin/order/add',
+                        'parent_id' => 0,
+                        'is_menu' => 0,
                     ]
                 ]
             ],
